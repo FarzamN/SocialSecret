@@ -1,118 +1,84 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import {RootState} from './src/redux/store';
+import {useDispatch, useSelector} from 'react-redux';
+import {setUser} from './src/redux/slices/authSlice';
+import {onDisplayNotification} from './src/function';
+import React, {FC, useEffect, useState} from 'react';
+import SplashScreen from 'react-native-splash-screen';
+import {changeTheme} from './src/redux/slices/themeSlice';
+import AuthNavigation from './src/Navigations/AuthNavigation';
+import AnimatedSplash from 'react-native-animated-splash-screen';
+import {useColorScheme} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import DrawerNavigation from './src/Navigations/DrawerNavigation';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const App: FC = () => {
+  const mode = useColorScheme();
+  const [load, setLoad] = useState<boolean>(false);
+  const {getItem} = AsyncStorage;
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
+  const dark =
+    useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const checkLoginState = async () => {
+    const data = await getItem('user');
+    if (data != null) {
+      const userData = JSON.parse(data);
+      dispatch(setUser(userData));
+    }
   };
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+  // !-- Notification work start
+  /*
+useEffect(() => {
+  const unsubscribe = message().onMessage(async remoteMessage => {
+    onDisplayNotification(remoteMessage);
+  });
+  
+  return unsubscribe;
+}, []);
+*/
+  // !-- Notification work end
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+  // !-- Theme work Start
+
+  const modeCheck = async () => {
+    const getMode = await AsyncStorage.getItem('mode');
+    console.log('get mode app.tsx', getMode);
+    if (getMode === 'Dark Theme') {
+      dispatch(changeTheme('dark'));
+      console.log('Dark Theme in app.tsx');
+    } else if (getMode === 'Light Theme') {
+      dispatch(changeTheme('light'));
+      console.log('Light Theme in app.tsx');
+    } else {
+      dispatch(changeTheme(mode));
+      console.log('device Theme in app.tsx');
+    }
+  };
+
+  useEffect(() => {
+    modeCheck();
+  }, [mode]);
+
+  // !-- Theme work end
+
+  useEffect(() => {
+    checkLoginState();
+    setTimeout(() => setLoad(true), 3000);
+    setTimeout(() => SplashScreen.hide(), 300);
+  }, []);
+
+  return (
+    <AnimatedSplash
+      isLoaded={load}
+      backgroundColor={dark ? '#00040F' : '#F1F1F1'}
+      logoHeight={150}
+      logoWidth={150}
+      logoImage={require('./src/Assets/Images/logo.png')}>
+      {user == null ? <AuthNavigation /> : <DrawerNavigation />}
+    </AnimatedSplash>
+  );
+};
 
 export default App;
