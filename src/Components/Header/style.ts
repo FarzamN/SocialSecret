@@ -1,5 +1,6 @@
 import {StatusBar, StyleSheet} from 'react-native';
 import {Font} from '../../Utils/font';
+import responsive, { FONT_SIZES } from '../../Utils/responsive';
 
 export const style = StyleSheet.create({
   BackButton: {
@@ -11,13 +12,13 @@ export const style = StyleSheet.create({
 
   // !Header style is here
   HeaderContainer: {
-    height: 65,
+    height: responsive.height(65),
   },
   gap: {
     width: 40,
   },
   label: {
-    fontSize: 20,
+    fontSize: FONT_SIZES.SUB_HEADING,
     fontFamily: Font.font800Italic,
   },
 
@@ -29,6 +30,6 @@ export const style = StyleSheet.create({
     borderRadius: 7,
     backgroundColor: '#fff',
     marginTop: StatusBar.currentHeight + 10,
-    marginLeft: 10,
+    marginLeft: responsive.space(10),
   },
 });

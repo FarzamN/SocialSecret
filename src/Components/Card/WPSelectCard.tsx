@@ -4,10 +4,11 @@ import {GlobalStyle, Row} from '../../Utils/GlobalStyle';
 import {style} from './style';
 import {WPSelectCardType} from '../../Utils/type';
 import Sub from '../Texts/Sub';
-import {Colors} from '../../Utils';
 import Icon from 'react-native-dynamic-vector-icons';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
+import responsive from '../../Utils/responsive';
+import { darkTheme, lightTheme } from '../../Utils/Colors';
 
 const WPSelectCard: FC<WPSelectCardType> = props => {
   const {title, onPress, iconName, type} = props;
@@ -24,11 +25,11 @@ const WPSelectCard: FC<WPSelectCardType> = props => {
       onPress={onPress}>
       <Row>
         <Icon
-          size={20}
+          size={responsive.fontSize(20)}
           name={iconName}
           type={type}
-          style={{marginRight: 15}}
-          color={dark ? Colors.DarkYellow : Colors.LightYellow}
+          style={{marginRight: responsive.space(15)}}
+          color={dark ? darkTheme.yellow : lightTheme.yellow}
         />
         <Sub text={`${title}`} style={style.scTitle} />
       </Row>

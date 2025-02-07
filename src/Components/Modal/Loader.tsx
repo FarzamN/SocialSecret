@@ -2,7 +2,6 @@ import {View, Text} from 'react-native';
 import React, {FC} from 'react';
 import {loaderType} from '../../Utils/type';
 import Modal from 'react-native-modal';
-import LottieView from 'lottie-react-native';
 import {styles} from './style';
 
 const Loader: FC<loaderType> = props => {
@@ -14,7 +13,7 @@ const Loader: FC<loaderType> = props => {
           styles.ModalContainer,
           {backgroundColor: '#FCFCFC', borderWidth: 0.8},
         ]}>
-        <LottieView
+        {/* <LottieView
           autoPlay
           style={styles.LottieView}
           source={
@@ -22,7 +21,7 @@ const Loader: FC<loaderType> = props => {
               ? require('../../Assets/lottie/error.json')
               : require('../../Assets/lottie/loader.json')
           }
-        />
+        /> */}
         <Text style={styles.ModalText}>
           {isError ? message : 'Please Wait...'}
         </Text>

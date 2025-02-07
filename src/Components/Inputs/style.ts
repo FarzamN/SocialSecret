@@ -1,19 +1,22 @@
 import {StyleSheet} from 'react-native';
-import {Colors, Constants} from '../../Utils';
 import {Font} from '../../Utils/font';
+import { Colors } from '../../Utils/Colors';
+import responsive, { FONT_SIZES } from '../../Utils/responsive';
 
 export default StyleSheet.create({
   Container: {
-    width: Constants.width - 20,
-    marginTop: 10,
+    width: "97%",
+    marginTop: responsive.space(10),
   },
   InputStyles: {
-    width: Constants.width - 20,
+   width: "97%",
+
+//    width: Constants.width - 20,
     backgroundColor: Colors.Non,
     alignSelf: 'center',
-    color: Colors.White,
+    color: Colors.white,
     fontFamily: Font.font400Italic,
-    fontSize: 16,
-    borderRadius: 15,
+    fontSize: FONT_SIZES.BODY,
+    borderRadius: responsive.borderRadius(15),
   },
 });

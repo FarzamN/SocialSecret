@@ -1,10 +1,10 @@
-import {Text} from 'react-native';
-import React, {FC} from 'react';
 import styles from './style';
-import {HeadingType} from '../../Utils/type';
-import {Colors} from '../../Utils';
-import {RootState} from '../../redux/store';
+import React, {FC} from 'react';
+import {Text} from 'react-native';
 import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/store';
+import { Colors } from '../../Utils/Colors';
+import {HeadingType} from '../../Utils/type';
 
 const Heading: FC<HeadingType> = props => {
   const {text, style, center, marginTop} = props;
@@ -15,9 +15,9 @@ const Heading: FC<HeadingType> = props => {
       style={[
         styles.Heading,
         {
-          marginTop: marginTop,
+          marginTop,
           textAlign: center ? 'center' : 'left',
-          color: checkTheme ? Colors.White : Colors.Black,
+          color: checkTheme ? Colors.white : Colors.black,
         },
         style,
       ]}>

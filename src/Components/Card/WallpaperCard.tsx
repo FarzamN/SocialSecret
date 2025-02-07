@@ -1,10 +1,10 @@
 import {style} from './style';
 import React, {FC} from 'react';
 import {WPCardType} from '../../Utils/type';
-import {width} from '../../Utils/Constants';
 import FullImage from '../Helper/FullImage';
 import {TouchableOpacity} from 'react-native';
 import * as Anime from 'react-native-animatable';
+import { width } from '../../Utils/responsive';
 
 const WallpaperCard: FC<WPCardType> = ({data, onPress}) => {
   const {source} = data;

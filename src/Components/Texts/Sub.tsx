@@ -1,22 +1,24 @@
+import styles from './style';
 import React, {FC} from 'react';
 import {Text} from 'react-native';
-import styles from './style';
-import {HeadingType} from '../../Utils/type';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
-import {Colors} from '../../Utils';
+import { Colors } from '../../Utils/Colors';
+import {HeadingType} from '../../Utils/type';
+
 const Sub: FC<HeadingType> = props => {
-  const {text, style, center, marginTop} = props;
+  const {text, style, center, marginTop,numberOfLines} = props;
   const checkTheme =
     useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
   return (
     <Text
+    numberOfLines={numberOfLines}
       style={[
         styles.Sub,
         {
+          marginTop,
           textAlign: center ? 'center' : 'left',
-          marginTop: marginTop,
-          color: checkTheme ? Colors.White : Colors.Black,
+          color: checkTheme ? Colors.white : Colors.black,
         },
         style,
       ]}>

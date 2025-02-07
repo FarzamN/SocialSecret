@@ -1,13 +1,13 @@
-import {View, Text} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {Header, ImageBackground, SearchBar} from '../../../Components';
 import {useFocusEffect} from '@react-navigation/native';
-import {Colors} from '../../../Utils';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/store';
 import {IBlog} from '../../../Utils/interface';
 import {IconType} from 'react-native-dynamic-vector-icons';
 import * as Anime from 'react-native-animatable';
+import { Colors } from '../../../Utils/Colors';
+import responsive from '../../../Utils/responsive';
 
 const ExploreScreen = ({navigation}: IBlog) => {
   const dark =
@@ -19,9 +19,9 @@ const ExploreScreen = ({navigation}: IBlog) => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          height: 60,
+          height: responsive.height(60),
           display: 'flex',
-          backgroundColor: dark ? Colors.Ash : Colors.White,
+          backgroundColor: dark ? Colors.ash : Colors.white,
         },
       });
     }, [dark]),

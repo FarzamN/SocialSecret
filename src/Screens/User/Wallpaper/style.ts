@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {width} from '../../../Utils/Constants';
+import responsive, { width } from '../../../Utils/responsive';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,34 +7,34 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   masonryList: {
-    padding: 10,
+    padding: responsive.space(10),
   },
   imageContainer: {
-    margin: 5,
-    borderRadius: 10,
+    margin: responsive.space(5),
+    borderRadius: responsive.borderRadius(10),
     overflow: 'hidden',
   },
   image: {
-    width: 100,
-    height: 100,
+    width: responsive.width(100),
+    height: responsive.height(100),
     aspectRatio: 1,
   },
   SwipeCont: {
-    height: 200,
-    marginTop: 5,
+    height: responsive.height(200),
+    marginTop: responsive.space(5),
     alignSelf: 'center',
   },
   SwipeFlatListCont: {
     width: width - 10,
     justifyContent: 'center',
-    borderRadius: 10,
-    marginHorizontal: 5,
+    borderRadius: responsive.borderRadius(10),
+    marginHorizontal: responsive.space(5),
   },
 
   // Apply Image styles
   ApplyImageButton: {
-    right: 10,
-    bottom: 10,
+    right: responsive.space(10),
+    bottom: responsive.space(10),
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',

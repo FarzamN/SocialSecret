@@ -1,6 +1,7 @@
 import Toast from 'react-native-toast-message';
-import notifee, {AndroidStyle} from '@notifee/react-native';
 
+/*
+import notifee, {AndroidStyle} from '@notifee/react-native';
 export const onDisplayNotification = async (data: any) => {
   console.log(data);
   await notifee.requestPermission();
@@ -20,7 +21,6 @@ export const onDisplayNotification = async (data: any) => {
       pressAction: {
         id: 'default',
       },
-      /*
       actions: [
         {
           title: 'Reply',
@@ -36,7 +36,6 @@ export const onDisplayNotification = async (data: any) => {
           //   },
         },
       ],
-       */
       actions: [
         {
           title: 'reply',
@@ -57,6 +56,7 @@ export const onDisplayNotification = async (data: any) => {
     },
   });
 };
+ */
 
 export const catchFun = () => {
   Toast.show({

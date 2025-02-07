@@ -1,7 +1,12 @@
 import {useState} from 'react';
 import {Platform} from 'react-native';
-import {openPicker, openCamera} from 'react-native-image-crop-picker';
+import {
+  openPicker,
+  openCamera,
+  Config,
+} from '@baronha/react-native-multiple-image-picker';
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import {Colors} from '../Utils/Colors';
 
 const useImagePicker = () => {
   const [image, setImage] = useState({
@@ -12,17 +17,34 @@ const useImagePicker = () => {
 
   const [picker, setPicker] = useState<boolean>(false);
 
+  const config: Config = {
+    maxSelect: 10,
+    maxVideo: 10,
+    primaryColor: Colors.primary,
+    backgroundDark: '#2f2f2f',
+    numberOfColumn: 4,
+    mediaType: 'all',
+    selectBoxStyle: 'number',
+    selectMode: 'multiple',
+    language: 'vi', // 🇻🇳 Vietnamese
+    theme: 'dark',
+    isHiddenOriginalButton: false,
+  };
+
   const galleryLaunch = async () => {
     try {
-      const image = await openPicker({
-        mediaType: 'photo',
-        cropping: true,
+      const response = await openPicker(config);
+      console.log('response', response)
+      setImage({
+        fileName: '',
+        uri: '',
+        type: '',
       });
-      if (!image) {
+      if (!response) {
         console.log('User cancelled image picker');
       } else {
         setImage({
-          fileName: image.path.split('/').pop(),
+          fileName: response.path.split('/').pop(),
           uri: image.path,
           type: image.mime,
         });
@@ -35,11 +57,9 @@ const useImagePicker = () => {
 
   const cameraLaunch = async () => {
     try {
-      const image = await openCamera({
-        mediaType: 'photo',
-        cropping: true,
-      });
-      if (!image) {
+      const response = await openCamera(config);
+
+      if (!response) {
         console.log('User cancelled image picker');
       } else {
         setImage({

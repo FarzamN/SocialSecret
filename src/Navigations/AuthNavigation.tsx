@@ -1,5 +1,4 @@
 import React, {FC} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   Login,
@@ -9,15 +8,18 @@ import {
   ForgetPassword,
   ChangePassword,
 } from '../Screens/Authentication';
+import { RootState } from '../redux/store';
+import { useSelector } from 'react-redux';
+import { darkTheme, lightTheme } from '../Utils/Colors';
 
 const AuthNavigation: FC = () => {
   const {Navigator, Screen} = createNativeStackNavigator();
+  const isDark = useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
 
   return (
-    <NavigationContainer>
       <Navigator
         initialRouteName={'login'}
-        screenOptions={{headerShown: false, animation: 'ios'}}>
+        screenOptions={{headerShown: false, animation: 'ios_from_left'}}>
         {[
           {n: 'login', c: Login},
           {n: 'register', c: Register},
@@ -29,7 +31,6 @@ const AuthNavigation: FC = () => {
           <Screen name={n} component={c} key={n} />
         ))}
       </Navigator>
-    </NavigationContainer>
   );
 };
 

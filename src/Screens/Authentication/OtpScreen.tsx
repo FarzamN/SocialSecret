@@ -13,11 +13,11 @@ import {
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import {style} from './style';
-import {Colors} from '../../Utils';
 import {GlobalStyle} from '../../Utils/GlobalStyle';
 import {InOtpScreen} from '../../Utils/interface';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
+import { Colors, darkTheme, lightTheme } from '../../Utils/Colors';
 
 const OtpScreen = ({navigation, route}: InOtpScreen) => {
   const {data, type} = route.params;
@@ -38,7 +38,7 @@ const OtpScreen = ({navigation, route}: InOtpScreen) => {
     console.log(otp);
   };
 
-  const handlePressKey = (num: string) => {
+  const handlePressKey = (num: number) => {
     if (value.length < 4) {
       setValue(prevValue => prevValue + num);
     }
@@ -87,10 +87,10 @@ const OtpScreen = ({navigation, route}: InOtpScreen) => {
             key={index}
             style={[
               style.CellBox,
-              isFocused && {backgroundColor: Colors.White},
+              isFocused && {backgroundColor: Colors.white},
             ]}>
             <Text
-              style={[style.cell, isFocused && {color: Colors.Black}]}
+              style={[style.cell, isFocused && {color: Colors.black}]}
               onLayout={cellHandler(index)}>
               {symbol || (isFocused ? <Cursor /> : null)}
             </Text>
@@ -104,7 +104,7 @@ const OtpScreen = ({navigation, route}: InOtpScreen) => {
             text="Resend"
             style={[
               style.resendText,
-              {color: dark ? Colors.DarkYellow : Colors.LightYellow},
+              {color: dark ? darkTheme.yellow : lightTheme.yellow},
             ]}
           />
         </TouchableOpacity>

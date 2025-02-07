@@ -7,13 +7,13 @@ import {
 } from 'react-hook-form';
 import style from './style';
 import {Validation} from '..';
-import {Colors} from '../../Utils';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
 import {MainInputType} from '../../Utils/type';
 import React, {FC, forwardRef, useState, Ref} from 'react';
 import {TextInput, DefaultTheme} from 'react-native-paper';
 import {View, TextInput as RNTextInput} from 'react-native';
+import { Colors, darkTheme, lightTheme } from '../../Utils/Colors';
 
 const MainInput: FC<MainInputType> = forwardRef(
   (props, ref: Ref<RNTextInput>) => {
@@ -49,14 +49,14 @@ const MainInput: FC<MainInputType> = forwardRef(
     const dark =
       useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
 
-    const color = dark ? Colors.White : Colors.Black;
-    const themeErrorColor = dark ? Colors.DarkRed : Colors.Red;
+    const color = dark ? Colors.white : Colors.black;
+    const themeErrorColor = dark ? darkTheme.error : lightTheme.error;
     const errorColor = isError ? themeErrorColor : color;
 
     const mode = outlined ? 'outlined' : 'flat';
     const label = outlined ? placeholder : undefined;
-    const cursorColor = dark ? Colors.LightYellow : Colors.DarkYellow;
-    const placeholderTextColor = dark ? Colors.Darkplace : Colors.Lightplace;
+    const cursorColor = dark ? lightTheme.yellow : darkTheme.yellow;
+    const placeholderTextColor = dark ? lightTheme.place : lightTheme.place;
     return (
       <View style={[style.Container, Container]}>
         <TextInput
@@ -77,8 +77,8 @@ const MainInput: FC<MainInputType> = forwardRef(
           onChangeText={field.onChange}
           selectionColor={Colors.AYellow}
           style={[style.InputStyles, restyle]}
-          activeOutlineColor={Colors.DarkYellow}
-          activeUnderlineColor={Colors.DarkYellow}
+          activeOutlineColor={darkTheme.yellow}
+          activeUnderlineColor={darkTheme.yellow}
           secureTextEntry={password ? show : false}
           placeholderTextColor={placeholderTextColor}
           theme={{
@@ -86,7 +86,7 @@ const MainInput: FC<MainInputType> = forwardRef(
             roundness: 8,
             colors: {
               error: themeErrorColor,
-              background: dark ? Colors.Blue : Colors.White,
+              background: dark ? Colors.blue : Colors.white,
             },
           }}
           right={

@@ -1,18 +1,20 @@
-import {StatusBar, View} from 'react-native';
 import React from 'react';
-import {FullImage, ImageBackground, Sub} from '../Components';
 import {style} from './style';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-  useDrawerStatus,
-} from '@react-navigation/drawer';
 import {Row} from '../Utils/GlobalStyle';
 import {Avatar} from 'react-native-paper';
+import {StatusBar, View} from 'react-native';
+import {FullImage, ImageBackground, Sub} from '../Components';
 
-const DrawerContainer = props => {
+import {
+  DrawerItemList,
+  useDrawerStatus,
+  DrawerContentScrollView,
+} from '@react-navigation/drawer';
+import { FONT_SIZES } from '../Utils/responsive';
+
+const DrawerContainer = (props:any) => {
   const Theme = useSelector((state: RootState) => state.themeMode.defTheme);
   const dark = Theme === 'dark';
   const isDrawerOpen = useDrawerStatus() === 'open';
@@ -44,8 +46,8 @@ const DrawerContainer = props => {
           source={require('../Assets/Images/noImage.png')}
         />
         <View style={style.TextBox}>
-          <Sub text="Farzam Noor" />
-          <Sub text="frzamn64ml@gmail.com" />
+          <Sub style={{fontSize:FONT_SIZES.SMALL}} text="Farzam Noor" />
+          <Sub style={{fontSize:FONT_SIZES.SMALL}}numberOfLines={2} text="frzamn64ml@gmail.com" />
         </View>
       </Row>
 

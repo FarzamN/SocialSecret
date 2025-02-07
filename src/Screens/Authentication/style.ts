@@ -1,31 +1,33 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from '../../Utils';
+import { Colors } from '../../Utils/Colors';
+import responsive, { FONT_SIZES } from '../../Utils/responsive';
+import { Font } from '../../Utils/font';
 
 export const style = StyleSheet.create({
   Overboard_Box: {
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
-    paddingTop: 20,
+    paddingTop: responsive.space(20),
   },
 
   codeFieldRoot: {
-    marginVertical: 10,
+    marginVertical: responsive.space(10),
     justifyContent: 'space-evenly',
   },
   cell: {
-    fontSize: 20,
-    color: Colors.White,
+    fontSize: FONT_SIZES.SUB_HEADING,
+    color: Colors.white,
     fontWeight: 'bold',
   },
   CellBox: {
-    borderRadius: 10,
+    borderRadius: responsive.borderRadius(10),
     backgroundColor: Colors.ThemeGrey,
-    width: 65,
-    height: 65,
+    width: responsive.width(65),
+    height: responsive.height(65),
     justifyContent: 'center',
     alignItems: 'center',
   },
 
-  resendText: {fontWeight: '600'},
+  resendText: {fontFamily: Font.font600},
 });

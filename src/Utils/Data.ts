@@ -1,4 +1,4 @@
-import {AllFeed, AllMusic, AllExplore} from '../Navigations/UserNavigation';
+import {AllFeed, AllMusic, AllExplore} from '../Navigations/tabNavigation';
 
 import {Font} from './font';
 
@@ -133,6 +133,30 @@ export const ImageData = [
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
   },
   {
+    source:
+      'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
+  },{
+    source:
+      'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
+  },{
+    source:
+      'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
+  },{
+    source:
+      'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
+  },{
+    source:
+      'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
+  },{
+    source:
+      'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
+  },{
+    source:
+      'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
+  },{
+    source:
+      'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
+  },{
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
   },

@@ -7,28 +7,27 @@ import {
   WallpaperSceen,
 } from '../Screens/User';
 import React from 'react';
-import {Colors} from '../Utils';
 import {Font} from '../Utils/font';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
-import UserNavigation from './UserNavigation';
+import tabNavigation from './tabNavigation';
 import DrawerContainer from './DrawerContainer';
 import {SettingScreen, Theme} from '../Screens/User';
-import {NavigationContainer} from '@react-navigation/native';
+import { darkTheme, lightTheme,Colors } from '../Utils/Colors';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import responsive, { FONT_SIZES } from '../Utils/responsive';
 
 const DrawerNavigation = () => {
   const {Navigator, Screen} = createDrawerNavigator();
-  const theme = useSelector((state: RootState) => state.themeMode.defTheme);
-  const dark = theme === 'dark';
-  const bg = dark ? Colors.White : Colors.Blue;
-  const rbg = dark ? Colors.Blue : Colors.White;
-  const Rtint = dark ? Colors.LightYellow : Colors.DarkYellow;
+  
+  const dark = useSelector((state: RootState) => state.themeMode.defTheme)=== 'dark';
+  const bg = dark ? Colors.white : Colors.blue;
+  const rbg = dark ? Colors.blue : Colors.white;
+  const Rtint = dark ? lightTheme.yellow : darkTheme.yellow;
 
   return (
-    <NavigationContainer>
       <Navigator
         screenOptions={{
           headerShown: false,
@@ -38,9 +37,10 @@ const DrawerNavigation = () => {
           drawerInactiveBackgroundColor: Rtint,
           drawerLabelStyle: {
             color: rbg,
-            fontSize: 14,
+            fontSize: FONT_SIZES.SMALL,
             fontFamily: Font.font600,
           },
+          drawerItemStyle:{marginVertical:responsive.space(2)}
         }}
         initialRouteName="Home"
         drawerContent={props => <DrawerContainer {...props} />}>
@@ -48,7 +48,7 @@ const DrawerNavigation = () => {
           {
             n: 'Home',
             In: 'home',
-            c: UserNavigation,
+            c: tabNavigation,
             icon: IconType.Ionicons,
           },
           {
@@ -82,22 +82,21 @@ const DrawerNavigation = () => {
             component={c}
             options={{
               drawerIcon: () => (
-                <Icon name={In} size={20} color={rbg} type={icon} />
+                <Icon name={In} size={FONT_SIZES.BODY} color={rbg} type={icon} />
               ),
             }}
           />
         ))}
       </Navigator>
-    </NavigationContainer>
   );
 };
 
 export default DrawerNavigation;
 
 const AllSetting = () => {
-  const Stack = createNativeStackNavigator();
+  const {Navigator,Screen} = createNativeStackNavigator();
   return (
-    <Stack.Navigator
+    <Navigator
       screenOptions={{headerShown: false, animation: 'slide_from_right'}}
       initialRouteName="SettingScreen">
       {[
@@ -106,9 +105,9 @@ const AllSetting = () => {
         {n: 'SetupTouchID', c: SetupTouchID},
         {n: 'CheckTouchID', c: CheckTouchID},
       ].map(({n, c}) => (
-        <Stack.Screen key={n} name={n} component={c} />
+        <Screen key={n} name={n} component={c} />
       ))}
-    </Stack.Navigator>
+    </Navigator>
   );
 };
 

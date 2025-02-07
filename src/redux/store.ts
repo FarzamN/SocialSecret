@@ -1,12 +1,12 @@
 import {rootReducer} from './reducers';
 import {configureStore} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
-import storage from '@react-native-async-storage/async-storage';
 import {FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
+import { reduxStorage } from '../Utils/storage';
 
 const persistConfig = {
   key: 'root',
-  storage,
+  storage:reduxStorage,
   whitelist: ['auth'],
 };
 

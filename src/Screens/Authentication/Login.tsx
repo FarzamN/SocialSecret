@@ -25,6 +25,7 @@ import Animated, {
 import {LoginInput} from '../../Utils/Data';
 import {AppDispatch} from '../../redux/store';
 import {setUser} from '../../redux/slices/authSlice';
+import responsive from '../../Utils/responsive';
 
 const Login: FC<ILogin> = ({navigation}) => {
   const {required, emailPattern, minLength, maxLength} = Constants;
@@ -114,7 +115,7 @@ const Login: FC<ILogin> = ({navigation}) => {
         activeOpacity={1}
         onPress={() => navigate('ForgetPassword')}>
         <Sub
-          marginTop={10}
+          marginTop={responsive.space(10)}
           text="Forget Password?"
           style={{textAlign: 'right'}}
         />
@@ -125,7 +126,7 @@ const Login: FC<ILogin> = ({navigation}) => {
         onPress={handleSubmit(onSubmit)}
       />
       <TouchableOpacity activeOpacity={1} onPress={() => navigate('register')}>
-        <Sub center text="Don't have an account? " marginTop={15} />
+        <Sub center text="Don't have an account? " marginTop={responsive.space(15)} />
       </TouchableOpacity>
       <View style={GlobalStyle.mt} />
       <Divider />

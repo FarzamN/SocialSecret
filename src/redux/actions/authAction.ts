@@ -1,12 +1,11 @@
+import { setItem } from './../../Utils/storage';
 import {Dispatch} from 'redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setOTP, setUser} from '../slices/authSlice';
 import {catchFun} from '../../function';
 import {apiUrl} from '../../Utils/Urls';
 import {ILoginInput, IauthInput} from '../../Utils/interface';
 import {ErrorFunction, LoadFunction, ShakeFunction} from '../../Utils/type';
 
-const {setItem} = AsyncStorage;
 const {log} = console;
 
 export const loginApi = (
@@ -32,7 +31,7 @@ export const loginApi = (
       const res = await response.json();
       if (res.status === 'success') {
         dispatch(setUser(res.data));
-        await setItem('user', JSON.stringify(res.data));
+       setItem('user', res.data);
         load(false);
       } else {
         shake();
@@ -70,7 +69,7 @@ export const authApi = (
       const res = await response.json();
       if (res.status === 200) {
         dispatch(setOTP(res.otp));
-        await setItem('user', JSON.stringify(res.data));
+       setItem('user', res.data);
         load(false);
       } else {
         load(false);

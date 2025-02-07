@@ -5,14 +5,15 @@ import {
   CustomButton,
   ImageBackground,
 } from '../../../Components';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch, useSelector} from 'react-redux';
-import {setUser} from '../../../redux/slices/authSlice';
 import {RootState} from '../../../redux/store';
 import {ISetting} from '../../../Utils/interface';
-import {IconType} from 'react-native-dynamic-vector-icons';
+import {useDispatch, useSelector} from 'react-redux';
 import {useFocusEffect} from '@react-navigation/native';
-import {Colors} from '../../../Utils';
+import {setUser} from '../../../redux/slices/authSlice';
+import {IconType} from 'react-native-dynamic-vector-icons';
+import { Colors } from '../../../Utils/Colors';
+import { removeItem } from '../../../Utils/storage';
+import responsive from '../../../Utils/responsive';
 
 const SettingScreen = ({navigation}: ISetting) => {
   const {navigate} = navigation;
@@ -22,7 +23,7 @@ const SettingScreen = ({navigation}: ISetting) => {
   const dark = Theme === 'dark';
   const handleLogout = async () => {
     try {
-      await AsyncStorage.removeItem('user');
+      removeItem('user');
       dispatch(setUser(null));
     } catch (error) {
       console.error('LogOut failed:', error);
@@ -59,9 +60,9 @@ const SettingScreen = ({navigation}: ISetting) => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          height: 60,
+          height: responsive.height(60),
           display: 'flex',
-          backgroundColor: dark ? Colors.Ash : Colors.White,
+          backgroundColor: dark ? Colors.ash : Colors.white,
         },
       });
     }, [dark]),

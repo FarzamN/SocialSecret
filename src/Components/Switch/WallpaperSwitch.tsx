@@ -2,13 +2,13 @@ import React, {FC, useEffect, useState} from 'react';
 import {Pressable, View} from 'react-native';
 import * as Anime from 'react-native-animatable';
 import Sub from '../Texts/Sub';
-import {Colors} from '../../Utils';
 import {Font} from '../../Utils/font';
 import {GlobalStyle} from '../../Utils/GlobalStyle';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
 import {style} from './style';
 import {WPSwitch} from '../../Utils/type';
+import { Colors, darkTheme, lightTheme } from '../../Utils/Colors';
 
 const WallpaperSwitch: FC<WPSwitch> = ({data, onPress, focus}) => {
   const Theme = useSelector((state: RootState) => state.themeMode.defTheme);
@@ -25,9 +25,9 @@ const WallpaperSwitch: FC<WPSwitch> = ({data, onPress, focus}) => {
       style={[
         style.SwitchCont,
         GlobalStyle.Space_evenly,
-        {backgroundColor: dark ? Colors.DarkYellow : Colors.LightYellow},
+        {backgroundColor: dark ? darkTheme.yellow : lightTheme.yellow},
       ]}>
-      {data.map(item => {
+      {data.map((item: any) => {
         return (
           <Anime.View
             key={item.id}
@@ -43,14 +43,14 @@ const WallpaperSwitch: FC<WPSwitch> = ({data, onPress, focus}) => {
                 style.WPSwitchContainer,
                 {
                   backgroundColor:
-                    focus === item.id ? Colors.White : Colors.Non,
-                  borderColor: focus === item.id ? Colors.Black : Colors.Non,
+                    focus === item.id ? Colors.white : Colors.Non,
+                  borderColor: focus === item.id ? Colors.black : Colors.Non,
                 },
               ]}>
               <Sub
                 text={item.title}
                 style={{
-                  color: focus === item.id ? Colors.Black : Colors.White,
+                  color: focus === item.id ? Colors.black : Colors.white,
                   fontFamily: Font.font600,
                 }}
               />

@@ -1,29 +1,29 @@
 import {StyleSheet} from 'react-native';
-import {width} from '../../Utils/Constants';
-import {Colors} from '../../Utils';
+import responsive, { FONT_SIZES, HEIGHT_SIZES, width } from '../../Utils/responsive';
+import { Font } from '../../Utils/font';
 
 export const style = StyleSheet.create({
   RadioContainer: {
-    height: 45,
+    height: HEIGHT_SIZES.DEFAULT,
   },
   Heading: {
-    fontSize: 14,
-    paddingRight: 10,
-    fontWeight: '400',
+    fontSize: FONT_SIZES.BODY,
+    paddingRight: responsive.borderRadius(10),
+    fontFamily: Font.font400,
   },
   // !--------- Wallpaper Switch styles
   WPSwitchContainer: {
     width: width / 3,
-    height: 37,
-    borderRadius: 5,
+    height: responsive.height(37),
+    borderRadius: responsive.borderRadius(5),
     borderWidth: 1,
   },
   SwitchCont: {
-    paddingHorizontal: 14,
-    borderRadius: 7,
-    marginTop: 5,
-    height: 45,
-    marginHorizontal: 5,
-    marginBottom: 10,
+    paddingHorizontal: responsive.space(14),
+    borderRadius: responsive.borderRadius(7),
+    marginTop: responsive.space(5),
+    height: HEIGHT_SIZES.DEFAULT,
+    marginHorizontal: responsive.space(5),
+    marginBottom: responsive.space(10),
   },
 });

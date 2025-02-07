@@ -1,5 +1,6 @@
+import useTheme from './useTheme';
 import useButtonAnimation from './useButtonAnimation';
 import useImagePicker from './useImagePicker';
 import useNotificationPermission from './useNotificationPermission';
 
-export {useButtonAnimation, useImagePicker, useNotificationPermission};
+export {useButtonAnimation, useImagePicker, useNotificationPermission,useTheme };

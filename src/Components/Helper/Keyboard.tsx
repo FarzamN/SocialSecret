@@ -1,10 +1,11 @@
 import {style} from './style';
 import React, {FC} from 'react';
-import {Colors} from '../../Utils';
 import {MD3Colors} from 'react-native-paper';
 import {KeyboardProps} from '../../Utils/interface';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
+import { Colors } from '../../Utils/Colors';
+import { FONT_SIZES } from '../../Utils/responsive';
 
 const Keyboard: FC<KeyboardProps> = ({
   onDone,
@@ -32,8 +33,8 @@ const Keyboard: FC<KeyboardProps> = ({
             style={[style.key, {backgroundColor: '#4A76FD'}]}
             onPress={onDone}>
             <Icon
-              size={25}
-              color={Colors.White}
+              size={FONT_SIZES.HEADING}
+              color={Colors.white}
               name="checkmark-done"
               type={IconType.Ionicons}
             />
@@ -43,9 +44,9 @@ const Keyboard: FC<KeyboardProps> = ({
             style={[style.key, {backgroundColor: MD3Colors.error50}]}
             onPress={onDelete}>
             <Icon
-              size={22}
+              size={FONT_SIZES.SUB_HEADING}
               name="delete"
-              color={Colors.White}
+              color={Colors.white}
               type={IconType.Feather}
             />
           </TouchableOpacity>

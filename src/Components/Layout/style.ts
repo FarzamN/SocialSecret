@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {Constants} from '../../Utils';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../redux/store';
+import { width } from '../../Utils/responsive';
 
 const {create, absoluteFillObject} = StyleSheet;
 export default create({
@@ -12,7 +10,7 @@ export default create({
   },
 
   Image_Box: {
-    width: Constants.width / 2,
+    width: width / 2,
     aspectRatio: 1 / 1,
     alignSelf: 'center',
   },

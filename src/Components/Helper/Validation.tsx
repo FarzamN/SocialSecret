@@ -2,9 +2,9 @@ import {Text} from 'react-native';
 import React, {FC} from 'react';
 import {ValidationType} from '../../Utils/type';
 import {style} from './style';
-import {Colors} from '../../Utils';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
+import { darkTheme, lightTheme } from '../../Utils/Colors';
 
 const Validation: FC<ValidationType> = props => {
   const {isError, message} = props;
@@ -17,7 +17,7 @@ const Validation: FC<ValidationType> = props => {
           style={[
             style.helperText,
             {
-              color: dark ? Colors.DarkRed : Colors.Red,
+              color: dark ? darkTheme.error : lightTheme.error,
             },
           ]}>
           {message}

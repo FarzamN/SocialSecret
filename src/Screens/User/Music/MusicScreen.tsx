@@ -8,7 +8,6 @@ import {
   SingerProfileCard as SPCard,
 } from '../../../Components';
 import {useFocusEffect} from '@react-navigation/native';
-import {Colors} from '../../../Utils';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/store';
 import {IMusic} from '../../../Utils/interface';
@@ -17,6 +16,8 @@ import * as Anime from 'react-native-animatable';
 import {style} from './style';
 import {GlobalStyle} from '../../../Utils/GlobalStyle';
 import {SingerProfileData} from '../../../Utils/Data';
+import { Colors } from '../../../Utils/Colors';
+import responsive from '../../../Utils/responsive';
 
 const MusicScreen = ({navigation}: IMusic) => {
   const {navigate, getParent} = navigation;
@@ -29,9 +30,9 @@ const MusicScreen = ({navigation}: IMusic) => {
     useCallback(() => {
       getParent()?.setOptions({
         tabBarStyle: {
-          height: 60,
+          height: responsive.height(60),
           display: 'flex',
-          backgroundColor: dark ? Colors.Ash : Colors.White,
+          backgroundColor: dark ? Colors.ash : Colors.white,
         },
       });
     }, [dark]),

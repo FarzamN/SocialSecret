@@ -3,26 +3,27 @@ import {Pressable, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import {GlobalStyle} from '../../Utils/GlobalStyle';
 import {RadioType} from '../../Utils/type';
-import {Colors} from '../../Utils';
 import {Heading, Sub} from '..';
 import {style} from './style';
 import {RootState} from '../../redux/store';
 import {useSelector} from 'react-redux';
+import responsive from '../../Utils/responsive';
+import { darkTheme, lightTheme } from '../../Utils/Colors';
 
 const Radio: FC<RadioType> = ({data, focus, onPress, i}) => {
   const {label, isSub} = data;
   const checkTheme =
     useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
   const color = !focus
-    ? Colors.DarkGrey
+    ? darkTheme.grey
     : checkTheme
-    ? Colors.DarkYellow
-    : Colors.LightYellow;
+    ? darkTheme.yellow
+    : lightTheme.yellow;
   return (
     <Pressable
       style={[
         GlobalStyle.PaddingHor,
-        {marginTop: i === 0 ? 15 : 10, paddingVertical: 5},
+        {marginTop: i === 0 ? responsive.space(15) : responsive.space(10), paddingVertical: responsive.space(5)},
       ]}
       onPress={onPress}
       android_ripple={GlobalStyle.ripple}>
@@ -31,9 +32,9 @@ const Radio: FC<RadioType> = ({data, focus, onPress, i}) => {
         <RadioButton
           value={label}
           onPress={onPress}
-          uncheckedColor={Colors.DarkGrey}
+          uncheckedColor={darkTheme.grey}
           status={focus ? 'checked' : 'unchecked'}
-          color={checkTheme ? Colors.DarkYellow : Colors.LightYellow}
+          color={checkTheme ? darkTheme.yellow : lightTheme.yellow}
         />
       </View>
       {isSub && (

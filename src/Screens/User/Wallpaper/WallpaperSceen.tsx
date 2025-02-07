@@ -1,24 +1,24 @@
-import {View, ScrollView, FlatList} from 'react-native';
-import React, {useState, useCallback} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../../redux/store';
 import {
   Header,
   Heading,
-  ImageBackground,
   SearchBar,
   WallpaperCard,
+  ImageBackground,
   WallpaperSwitch,
 } from '../../../Components';
-import {IWallpaper} from '../../../Utils/interface';
-
-import {IconType} from 'react-native-dynamic-vector-icons';
-import {Colors} from '../../../Utils';
 import {styles} from './style';
-import MasonryList from '@react-native-seoul/masonry-list';
+import {useSelector} from 'react-redux';
+import {View, ScrollView} from 'react-native';
+import {Colors} from '../../../Utils/Colors';
+import {RootState} from '../../../redux/store';
 import * as Anime from 'react-native-animatable';
-import {width} from '../../../Utils/Constants';
+import {width} from '../../../Utils/responsive';
+import responsive from '../../../Utils/responsive';
+import React, {useState, useCallback} from 'react';
+import {IWallpaper} from '../../../Utils/interface';
+import {useFocusEffect} from '@react-navigation/native';
+import {IconType} from 'react-native-dynamic-vector-icons';
+import MasonryList from '@react-native-seoul/masonry-list';
 import {ImageData, WPSwitchData} from '../../../Utils/Data';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 
@@ -29,26 +29,30 @@ const WallpaperSceen = ({navigation}: IWallpaper) => {
   const [focus, setFocus] = useState(1);
   const Theme = useSelector((state: RootState) => state.themeMode.defTheme);
   const dark = Theme === 'dark';
-  const colors = ['tomato', 'thistle', 'skyblue', 'teal'];
 
   const [scrollValue, setScrollValue] = useState(0);
+  const showStickySwitch = scrollValue > 205; // Controls visibility
+
   const onScroll = (e: any) => {
     setScrollValue(e.nativeEvent.contentOffset.y.toFixed(0));
   };
+
   const handleWP = (item: any) => {
     navigate('ApplyImage', {item});
   };
+
   useFocusEffect(
     useCallback(() => {
       getParent()?.setOptions({
         tabBarStyle: {
-          height: 60,
+          height: responsive.height(60),
           display: 'flex',
-          backgroundColor: dark ? Colors.Ash : Colors.White,
+          backgroundColor: dark ? Colors.ash : Colors.white,
         },
       });
     }, [dark]),
   );
+
   return (
     <ImageBackground>
       {!showSearch ? (
@@ -66,20 +70,12 @@ const WallpaperSceen = ({navigation}: IWallpaper) => {
         <Anime.View animation="fadeInRightBig" duration={300}>
           <SearchBar
             value={searchQuery}
-            onChange={t => setSearchQuery(t)}
+            onChange={setSearchQuery}
             onClose={() => setShowSearch(false)}
           />
         </Anime.View>
       )}
-      {scrollValue > 205 && (
-        <Anime.View animation="fadeInDown" duration={1000}>
-          <WallpaperSwitch
-            focus={focus}
-            data={WPSwitchData}
-            onPress={id => setFocus(id)}
-          />
-        </Anime.View>
-      )}
+
       <ScrollView
         nestedScrollEnabled
         onScroll={onScroll}
@@ -87,26 +83,26 @@ const WallpaperSceen = ({navigation}: IWallpaper) => {
         <SwiperFlatList
           style={styles.SwipeCont}
           autoplay
-          autoplayDelay={2}
+          autoplayDelay={3}
           autoplayLoop
           index={2}
-          data={colors}
+          data={['tomato', 'thistle', 'skyblue', 'teal']}
           renderItem={({item}) => (
             <View style={[styles.SwipeFlatListCont, {backgroundColor: item}]}>
               <Heading text={item} center />
             </View>
           )}
         />
-        {scrollValue < 206 && (
-          <Anime.View animation="fadeInUp" duration={1000}>
-            <WallpaperSwitch
-              focus={focus}
-              data={WPSwitchData}
-              onPress={id => setFocus(id)}
-            />
-          </Anime.View>
-        )}
-        <View style={{height: 3}} />
+        <Anime.View
+          animation={showStickySwitch ? 'fadeInDown' : 'fadeInUp'}
+          duration={1000}>
+          <WallpaperSwitch
+            focus={focus}
+            data={WPSwitchData}
+            onPress={setFocus}
+          />
+        </Anime.View>
+        <View style={{height: responsive.height(3)}} />
         <View style={{width, marginHorizontal: 5}}>
           <MasonryList
             numColumns={2}

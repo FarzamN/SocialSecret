@@ -6,7 +6,7 @@ import styles from './style';
 import {ImageBackgroundType as ibt} from '../../Utils/type';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
-import {Colors} from '../../Utils';
+import { Colors } from '../../Utils/Colors';
 
 const ImageBackground: FC<ibt> = props => {
   const {children, between} = props;
@@ -23,7 +23,7 @@ const ImageBackground: FC<ibt> = props => {
         }
         style={[
           GlobalStyle.container,
-          {backgroundColor: dark ? Colors.Blue : Colors.White},
+          {backgroundColor: dark ? Colors.blue : Colors.white},
         ]}>
         <View
           style={[

@@ -1,6 +1,7 @@
-import {StyleSheet, StatusBar} from 'react-native';
-import {Colors} from '.';
 import styled from 'styled-components/native';
+import { Colors, lightTheme } from './Colors';
+import {StyleSheet, StatusBar} from 'react-native';
+import responsive from './responsive';
 
 export const Row = styled.View`
   flex-direction: row;
@@ -20,7 +21,7 @@ export const GlobalStyle = StyleSheet.create({
   container: {flex: 1},
   HideBar: {display: 'none'},
   ShowBar: {
-    height: 60,
+    height: responsive.height(100),
     display: 'flex',
   },
   full: {
@@ -51,7 +52,7 @@ export const GlobalStyle = StyleSheet.create({
     alignSelf: 'center',
   },
   Shadow: {
-    shadowColor: Colors.Black,
+    shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -72,22 +73,24 @@ export const GlobalStyle = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 6,
+    marginTop: responsive.space(6),
   },
   Padding: {
-    width: '95%',
+    // backgroundColor:'red',
+    // width: '95%',
+    // marginHorizontal:20,
     alignSelf: 'center',
   },
   PaddingHor: {
-    paddingHorizontal: 15,
+    paddingHorizontal: responsive.space(15),
   },
 
   Vertical_Space: {
-    height: 15,
+    height: responsive.height(15),
   },
-  mt: {marginTop: 15},
+  mt: {marginTop: responsive.space(15)},
   statusBar: {marginTop: StatusBar.currentHeight},
   ripple: {
-    color: Colors.LightYellow,
+    color: lightTheme.yellow,
   },
 });

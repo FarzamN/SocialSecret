@@ -1,26 +1,34 @@
-import {StyleSheet} from 'react-native';
+import responsive, {
+  FONT_SIZES,
+  HEIGHT_SIZES,
+  BORDER_RADIUS,
+} from '../Utils/responsive';
 import {Font} from '../Utils/font';
+import {StyleSheet} from 'react-native';
 
 export const style = StyleSheet.create({
   IconBox: {
-    borderRadius: 50,
-    paddingVertical: 1.3,
-    paddingHorizontal: 13,
+    width: HEIGHT_SIZES.SMALL,
+    height: responsive.height(21),
+    borderRadius: BORDER_RADIUS.CIRCLE,
   },
   Text: {
-    fontSize: 13,
+    fontSize: FONT_SIZES.SMALL,
     textTransform: 'capitalize',
-    paddingBottom: 5,
     fontFamily: Font.font500Italic,
+    paddingBottom: responsive.space(5),
   },
 
   // Container
   ImageBox: {
     width: '100%',
-    height: 200,
-    borderRadius: 10,
+    height: responsive.height(200),
+    borderRadius: responsive.borderRadius(10),
   },
 
-  AvatarBox: {marginTop: -35, marginLeft: 10},
-  TextBox: {marginLeft: 10},
+  AvatarBox: {
+    marginTop: responsive.space(-35),
+    marginLeft: responsive.space(10),
+  },
+  TextBox: {marginLeft: responsive.space(10), maxWidth: '60%'},
 });

@@ -1,12 +1,13 @@
-import {View, Image, TouchableOpacity} from 'react-native';
-import React, {FC} from 'react';
 import {style} from './style';
-import {GlobalStyle} from '../../Utils/GlobalStyle';
-import Icon, {IconType} from 'react-native-dynamic-vector-icons';
-import {Colors} from '../../Utils';
-import {ImageType} from '../../Utils/type';
+import React, {FC} from 'react';
 import {useSelector} from 'react-redux';
+import {ImageType} from '../../Utils/type';
 import {RootState} from '../../redux/store';
+import {GlobalStyle} from '../../Utils/GlobalStyle';
+import { FONT_SIZES } from '../../Utils/responsive';
+import { darkTheme, lightTheme } from '../../Utils/Colors';
+import {View, Image, TouchableOpacity} from 'react-native';
+import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 
 const SelectImage: FC<ImageType> = props => {
   const {onPress, source} = props;
@@ -24,10 +25,10 @@ const SelectImage: FC<ImageType> = props => {
         activeOpacity={0.7}
         style={style.IconBox}>
         <Icon
-          size={16}
+          size={FONT_SIZES.BODY}
           name="camera"
           type={IconType.Entypo}
-          color={dark ? Colors.DarkYellow : Colors.LightYellow}
+          color={dark ? darkTheme.yellow : lightTheme.yellow}
         />
       </TouchableOpacity>
     </View>

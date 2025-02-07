@@ -1,7 +1,6 @@
 import {styles} from './style';
 import React, {FC} from 'react';
 import {View} from 'react-native';
-import {Colors} from '../../Utils';
 import Modal from 'react-native-modal';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
@@ -11,6 +10,8 @@ import {IconType} from 'react-native-dynamic-vector-icons';
 import {ActivityIndicator} from 'react-native-paper';
 import Sub from '../Texts/Sub';
 import style from '../Texts/style';
+import { Colors, darkTheme, lightTheme } from '../../Utils/Colors';
+import responsive from '../../Utils/responsive';
 
 const WpSelectModal: FC<WPSelectType> = props => {
   const {
@@ -25,7 +26,7 @@ const WpSelectModal: FC<WPSelectType> = props => {
   } = props;
   const Theme = useSelector((state: RootState) => state.themeMode.defTheme);
   const dark = Theme === 'dark';
-  const yellowColor = dark ? Colors.DarkYellow : Colors.LightYellow;
+  const yellowColor = dark ? darkTheme.yellow : lightTheme.yellow;
   const selectData = [
     {
       title: 'Home Screen',
@@ -73,7 +74,7 @@ const WpSelectModal: FC<WPSelectType> = props => {
       <View
         style={[
           styles.WPCont,
-          {backgroundColor: dark ? Colors.Black : Colors.White},
+          {backgroundColor: dark ? Colors.black : Colors.white},
         ]}>
         <View style={[styles.Line, {backgroundColor: yellowColor}]} />
         <View
@@ -87,7 +88,7 @@ const WpSelectModal: FC<WPSelectType> = props => {
               <Sub
                 text="Loading..."
                 center
-                marginTop={10}
+                marginTop={responsive.space(10)}
                 style={[styles.loadText, {color: yellowColor}]}
               />
             </>

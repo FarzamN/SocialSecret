@@ -1,30 +1,31 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from '../../Utils';
 import {Font} from '../../Utils/font';
+import { Colors } from '../../Utils/Colors';
+import responsive, { BORDER_RADIUS, FONT_SIZES, HEIGHT_SIZES } from '../../Utils/responsive';
 
 export default StyleSheet.create({
   containerStyle: {
-    marginTop: 10,
+    marginTop: responsive.space(10),
     alignSelf: 'center',
   },
   loading: {
-    fontSize: 16,
-    marginLeft: 10,
-    color: Colors.White,
+    fontSize: FONT_SIZES.BODY,
+    marginLeft: responsive.space(10),
+    color: Colors.white,
     fontFamily: Font.font500Italic,
   },
   title: {
-    fontSize: 18,
+    fontSize: FONT_SIZES.BODY,
     textTransform: 'capitalize',
     fontFamily: Font.font600Italic,
   },
 
   // Wallpaper Button style
   WPContainer: {
-    backgroundColor: Colors.White,
-    borderRadius: 10,
+    backgroundColor: Colors.white,
+    borderRadius: BORDER_RADIUS.MEDIUM,
     borderWidth: 1,
-    height: 45,
+    height: HEIGHT_SIZES.DEFAULT,
   },
-  text: {color: '#000', fontSize: 16, fontFamily: Font.font600Italic},
+  text: {color: '#000', fontSize: FONT_SIZES.BODY, fontFamily: Font.font600Italic},
 });

@@ -1,12 +1,13 @@
 import {Alert} from 'react-native';
 import {useSelector} from 'react-redux';
-import {Colors} from '../../../../Utils';
 import React, {FC, useState} from 'react';
 import {RootState} from '../../../../redux/store';
 import GesturePassword from 'react-native-gesture-password';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CustomButton, Header, ImageBackground} from '../../../../Components';
 import {IconType} from 'react-native-dynamic-vector-icons';
+import { Colors, darkTheme } from '../../../../Utils/Colors';
+import { getItem } from '../../../../Utils/storage';
+import responsive from '../../../../Utils/responsive';
 
 const CheckTouchID: FC = () => {
   const Theme = useSelector((state: RootState) => state.themeMode.defTheme);
@@ -14,7 +15,7 @@ const CheckTouchID: FC = () => {
   const [enteredPattern, setEnteredPattern] = useState('');
 
   const verifyPattern = async () => {
-    const storedPattern = await AsyncStorage.getItem('pattern');
+    const storedPattern = getItem('pattern');
     console.log({storedPattern});
     if (enteredPattern === storedPattern) {
       Alert.alert('Success', 'Pattern unlocked!');
@@ -36,15 +37,15 @@ const CheckTouchID: FC = () => {
       <GesturePassword
         allowCross
         wrongColor="red"
-        rightColor={Colors.DarkYellow}
+        rightColor={darkTheme.yellow}
         style={{backgroundColor: Colors.Non}}
         onEnd={pattern => setEnteredPattern(pattern)}
-        normalColor={dark ? Colors.Sky : Colors.White}
+        normalColor={dark ? Colors.primary : Colors.white}
       />
       <CustomButton
         title="Unlock"
         onPress={verifyPattern}
-        style={{marginBottom: 10}}
+        style={{marginBottom: responsive.space(10)}}
       />
     </ImageBackground>
   );

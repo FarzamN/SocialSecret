@@ -54,6 +54,7 @@ export type HeadingType = {
   style?: StyleProp<TextStyle>;
   center?: boolean;
   marginTop?: number;
+  numberOfLines?: number;
 };
 
 export type MainInputType = {

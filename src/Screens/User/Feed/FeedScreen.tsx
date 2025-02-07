@@ -1,13 +1,14 @@
-import {View, Text, BackHandler} from 'react-native';
+import {Text} from 'react-native';
 import React, {useCallback} from 'react';
 import {Header, ImageBackground} from '../../../Components';
 import {IconType} from 'react-native-dynamic-vector-icons';
-import {GlobalStyle} from '../../../Utils/GlobalStyle';
 import {useFocusEffect} from '@react-navigation/native';
 import {IFeed} from '../../../Utils/interface';
 import {RootState} from '../../../redux/store';
 import {useSelector} from 'react-redux';
-import {Colors} from '../../../Utils';
+import { iOS } from '../../../Utils/Constants';
+import { Colors } from '../../../Utils/Colors';
+import responsive from '../../../Utils/responsive';
 
 const FeedScreen = ({navigation}: IFeed) => {
   const dark =
@@ -17,9 +18,9 @@ const FeedScreen = ({navigation}: IFeed) => {
     useCallback(() => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
-          height: 60,
           display: 'flex',
-          backgroundColor: dark ? Colors.Ash : Colors.White,
+          height: responsive.height(60),
+          backgroundColor: dark ? Colors.ash : Colors.white,
         },
       });
     }, [dark]),

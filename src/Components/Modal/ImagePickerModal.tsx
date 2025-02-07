@@ -3,17 +3,18 @@ import {Text, View, TouchableOpacity} from 'react-native';
 
 import Modal from 'react-native-modal';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
-import {Colors} from '../../Utils';
 import {ImagePicType} from '../../Utils/type';
 import {styles} from './style';
 import {RootState} from '../../redux/store';
 import {useSelector} from 'react-redux';
+import { Colors } from '../../Utils/Colors';
+import { FONT_SIZES } from '../../Utils/responsive';
 
 const ImagePickerModal: FC<ImagePicType> = props => {
   const {isVisible, onClose, PressPicture, PressCamera} = props;
   const dark =
     useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
-  const color = dark ? Colors.White : Colors.Blue;
+  const color = dark ? Colors.white : Colors.blue;
   return (
     <Modal
       testID={'modal'}
@@ -28,8 +29,8 @@ const ImagePickerModal: FC<ImagePicType> = props => {
           <Icon
             type={IconType.Entypo}
             name="cross"
-            size={25}
-            color={Colors.White}
+            size={FONT_SIZES.HEADING}
+            color={Colors.white}
           />
         </TouchableOpacity>
 
@@ -37,14 +38,14 @@ const ImagePickerModal: FC<ImagePicType> = props => {
           style={[
             styles.SecCon,
             {
-              backgroundColor: dark ? Colors.Blue : Colors.White,
+              backgroundColor: dark ? Colors.blue : Colors.white,
             },
           ]}>
           <TouchableOpacity onPress={PressPicture} style={styles.ModalBtn}>
             <Icon
               type={IconType.MaterialIcons}
               name="photo"
-              size={32}
+              size={FONT_SIZES.LARGE_TITLE}
               color={color}
             />
             <Text style={[styles.Text1, {color}]}>Upload picture</Text>
@@ -53,7 +54,7 @@ const ImagePickerModal: FC<ImagePicType> = props => {
             <Icon
               type={IconType.Entypo}
               name="camera"
-              size={30}
+              size={FONT_SIZES.LARGE_TITLE}
               color={color}
             />
             <Text style={[styles.Text1, {color}]}>Take a picture</Text>

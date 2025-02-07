@@ -1,11 +1,7 @@
 import {EmailRegix} from './Urls';
-import {Dimensions, Platform} from 'react-native';
+import { Platform} from 'react-native';
 
-export const {width, height} = Dimensions.get('screen');
 
-export const f_inch = width <= 350 && height <= 600;
-export const tab = width >= 768 && height >= 1024;
-export const phone = width <= 400 && height <= 800;
 
 export const OS = Platform.OS;
 export const iOS = Platform.OS === 'ios';
@@ -29,3 +25,4 @@ export const emailPattern = {
 export const required = (type: any) => {
   return `${type} is Required`;
 };
+

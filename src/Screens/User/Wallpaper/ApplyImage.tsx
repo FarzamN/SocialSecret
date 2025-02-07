@@ -1,7 +1,7 @@
 import {styles} from './style';
-import {Colors} from '../../../Utils';
 import React, {useState} from 'react';
 import Toast from 'react-native-simple-toast';
+import { Colors } from '../../../Utils/Colors';
 import {IApplyImage} from '../../../Utils/interface';
 import MW, {TYPE} from 'react-native-manage-wallpaper';
 import {GlobalStyle} from '../../../Utils/GlobalStyle';
@@ -22,7 +22,8 @@ const ApplyImage = ({navigation, route}: IApplyImage) => {
 
   const handleWP = (e: any) => {
     setLoad(true);
-    MW.setWallpaper({uri: source}, callback, e);
+    console.log('source', source)
+    // MW.setWallpaper({uri: source}, callback, e);
   };
   return (
     <ImageBackground
@@ -36,6 +37,7 @@ const ApplyImage = ({navigation, route}: IApplyImage) => {
         <WPButton onPress={() => setShowModal(true)} />
       </View>
       <WpSelectModal
+       
         visible={showModal}
         load={load}
         onHome={() => handleWP(TYPE.HOME)}
