@@ -46,8 +46,7 @@ android {
 }
 
 dependencies {
- implementation("com.facebook.react:react-android")
-    implementation project(':react-native-splash-screen')
+    implementation("com.facebook.react:react-android")
     implementation project(':react-native-vector-icons')
 
     if (hermesEnabled.toBoolean()) {

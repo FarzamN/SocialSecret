@@ -54,7 +54,7 @@ const Header: FC<HeaderType> = props => {
                 borderColor: dark ? Colors.black : lightTheme.yellow,
               },
             ]}
-            onPress={() => goBack()}>
+            onPress={goBack}>
             <Icon
               size={responsive.fontSize(20)}
               name="chevron-left"

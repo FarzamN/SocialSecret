@@ -19,7 +19,7 @@ const FeedScreen = ({navigation}: IFeed) => {
       navigation.getParent()?.setOptions({
         tabBarStyle: {
           display: 'flex',
-          height: responsive.height(60),
+          height: responsive.height(80),
           backgroundColor: dark ? Colors.ash : Colors.white,
         },
       });

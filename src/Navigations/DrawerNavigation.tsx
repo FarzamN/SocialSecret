@@ -17,7 +17,7 @@ import { darkTheme, lightTheme,Colors } from '../Utils/Colors';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import responsive, { FONT_SIZES } from '../Utils/responsive';
+import responsive, { BORDER_RADIUS, FONT_SIZES } from '../Utils/responsive';
 
 const DrawerNavigation = () => {
   const {Navigator, Screen} = createDrawerNavigator();
@@ -40,7 +40,7 @@ const DrawerNavigation = () => {
             fontSize: FONT_SIZES.SMALL,
             fontFamily: Font.font600,
           },
-          drawerItemStyle:{marginVertical:responsive.space(2)}
+          drawerItemStyle:{marginVertical:responsive.space(2), borderRadius:BORDER_RADIUS.MEDIUM}
         }}
         initialRouteName="Home"
         drawerContent={props => <DrawerContainer {...props} />}>

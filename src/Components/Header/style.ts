@@ -1,12 +1,12 @@
 import {StatusBar, StyleSheet} from 'react-native';
 import {Font} from '../../Utils/font';
-import responsive, { FONT_SIZES } from '../../Utils/responsive';
+import responsive, { BORDER_RADIUS, FONT_SIZES } from '../../Utils/responsive';
 
 export const style = StyleSheet.create({
   BackButton: {
-    width: 35,
+    width: responsive.width(35),
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: BORDER_RADIUS.SMALL,
     aspectRatio: 1 / 1,
   },
 
@@ -15,16 +15,16 @@ export const style = StyleSheet.create({
     height: responsive.height(65),
   },
   gap: {
-    width: 40,
+    width: responsive.width(40),
   },
   label: {
-    fontSize: FONT_SIZES.SUB_HEADING,
+    fontSize: FONT_SIZES.BODY,
     fontFamily: Font.font800Italic,
   },
 
   // WP style is here
   WPBackCont: {
-    width: 40,
+    width: responsive.width(40),
     aspectRatio: 1 / 1,
     borderWidth: 1,
     borderRadius: 7,

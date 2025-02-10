@@ -2,7 +2,6 @@ import {RootState} from './src/redux/store';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUser} from './src/redux/slices/authSlice';
 import React, {FC, useEffect, useState} from 'react';
-import SplashScreen from 'react-native-splash-screen';
 import {changeTheme} from './src/redux/slices/themeSlice';
 import AuthNavigation from './src/Navigations/AuthNavigation';
 import AnimatedSplash from 'react-native-animated-splash-screen';
@@ -29,8 +28,7 @@ const App: FC = () => {
 
   // !-- Notification work start
   /*
-useEffect(() => {
-  const unsubscribe = message().onMessage(async remoteMessage => {
+useEffect(() => { const unsubscribe = message().onMessage(async remoteMessage => {
     onDisplayNotification(remoteMessage);
   });
   
@@ -60,7 +58,6 @@ useEffect(() => {
   useEffect(() => {
     checkLoginState();
     setTimeout(() => setLoad(true), 3000);
-    setTimeout(() => SplashScreen.hide(), 300);
   }, []);
 
   return (
