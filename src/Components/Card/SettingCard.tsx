@@ -12,9 +12,9 @@ import responsive from '../../Utils/responsive';
 
 const SettingCard: FC<SettingCardType> = ({data}) => {
   const {title, onPress, iconName, type} = data;
-  const dark =
+  const isDark =
     useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
-  const color = dark ? Colors.white : Colors.black;
+  const color = isDark ? Colors.white : Colors.black;
   return (
     <Pressable
       android_ripple={GlobalStyle.ripple}
@@ -38,7 +38,7 @@ const SettingCard: FC<SettingCardType> = ({data}) => {
         name="chevron-right"
         type={IconType.Entypo}
         size={responsive.fontSize(20)}
-        color={dark ? darkTheme.yellow : lightTheme.yellow}
+        color={isDark ? darkTheme.yellow : lightTheme.yellow}
       />
     </Pressable>
   );

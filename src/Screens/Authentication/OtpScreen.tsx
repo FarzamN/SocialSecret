@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {AuthBody, Keyboard, Sub} from '../../Components';
+import {AuthBody, Keyboard, Loader, Sub} from '../../Components';
 import {
   Cursor,
   CodeField,
@@ -15,14 +15,35 @@ import {
 import {style} from './style';
 import {GlobalStyle} from '../../Utils/GlobalStyle';
 import {InOtpScreen} from '../../Utils/interface';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
-import { Colors, darkTheme, lightTheme } from '../../Utils/Colors';
+import {Colors, darkTheme, lightTheme} from '../../Utils/Colors';
+import {registerApi} from '../../redux/actions/authAction';
 
 const OtpScreen = ({navigation, route}: InOtpScreen) => {
+  const dispatch = useDispatch();
   const {data, type} = route.params;
 
+  const {otp} = useSelector((state: RootState) => state.auth);
   const [value, setValue] = useState<string>('');
+
+  const num = 60;
+
+  const [load, setLoad] = useState(false);
+  const [error, setError] = useState({msg: '', visible: false});
+const [counter,setCounter] = useState(num)
+
+useEffect(() => {
+  const timer =
+    counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+  return () => clearInterval(timer);
+}, [counter]);
+
+const handleResend = () => {
+  setCounter(num);
+  // dispatch(resendOtp(data, setLoad, type));
+};
+
   const [isKeyboard, setKeyboard] = useState<boolean>(true);
   const dark =
     useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
@@ -31,12 +52,6 @@ const OtpScreen = ({navigation, route}: InOtpScreen) => {
     value,
     setValue,
   });
-  console.log(type);
-  const otp = (1234).toString();
-
-  const handleResend = () => {
-    console.log(otp);
-  };
 
   const handlePressKey = (num: number) => {
     if (value.length < 4) {
@@ -49,8 +64,10 @@ const OtpScreen = ({navigation, route}: InOtpScreen) => {
   };
 
   const onSubmit = () => {
-    if (value === otp) {
-      navigation.navigate('changePassword');
+    if (value == otp) {
+      registerApi(data, setLoad, setError)(dispatch);
+    } else {
+      setError({visible: true, msg: 'invalid otp'});
     }
   };
 
@@ -72,7 +89,7 @@ const OtpScreen = ({navigation, route}: InOtpScreen) => {
     <AuthBody
       noButton
       heading="Enter Verfication Code"
-      sub={`Otp has been sent to you in ${data.email}`}>
+      sub={`Otp has been sent to you in ${otp + data.email}`}>
       <CodeField
         ref={ref}
         {...props}
@@ -97,24 +114,51 @@ const OtpScreen = ({navigation, route}: InOtpScreen) => {
           </View>
         )}
       />
-      <View style={[GlobalStyle.row_center, {marginVertical: 10}]}>
-        <Sub text="Don't receive the OTP? " />
-        <TouchableOpacity activeOpacity={1} onPress={handleResend}>
-          <Sub
-            text="Resend"
-            style={[
-              style.resendText,
-              {color: dark ? darkTheme.yellow : lightTheme.yellow},
-            ]}
-          />
-        </TouchableOpacity>
-      </View>
+      {load ? (
+        <Sub
+          center
+          text="Loading..."
+          style={[
+            style.resendText,
+            {
+              marginVertical: 10,
+              color: dark ? darkTheme.yellow : lightTheme.yellow,
+            },
+          ]}
+        />
+      ) : (
+        <View style={[GlobalStyle.row_center, {marginVertical: 10}]}>
+          <Sub text={ counter === 0 ? "Don't receive the OTP? " : "Resend code in "} />
+
+          <TouchableOpacity activeOpacity={1}     disabled={counter !== 0} onPress={handleResend}>
+             <Sub
+              text={
+                counter === 0
+                  ? "Resend"
+                  : `${counter} ${counter > 1 ? 'secs' : 'sec'}`
+              }
+              style={[
+                style.resendText,
+                {color: dark ? darkTheme.yellow : lightTheme.yellow},
+              ]}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
+
       <Keyboard
         onPressKey={handlePressKey}
         onDelete={handleDelete}
         onDone={onSubmit}
         visible={isKeyboard}
       />
+      <Loader
+        visible={error.visible}
+        isError
+        msg={error.msg}
+        onClose={() => setError({visible: false, msg: ''})}
+      />
+
       <View style={GlobalStyle.Vertical_Space} />
     </AuthBody>
   );

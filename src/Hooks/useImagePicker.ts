@@ -1,12 +1,13 @@
 import {useState} from 'react';
-import {Platform} from 'react-native';
+import {android} from '../Utils/Constants';
+import {openCamera, openPicker} from 'react-native-image-crop-picker';
 import {
-  openPicker,
-  openCamera,
-  Config,
-} from '@baronha/react-native-multiple-image-picker';
-import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import {Colors} from '../Utils/Colors';
+  request,
+  check,
+  PERMISSIONS,
+  RESULTS,
+  openSettings,
+} from 'react-native-permissions';
 
 const useImagePicker = () => {
   const [image, setImage] = useState({
@@ -17,36 +18,20 @@ const useImagePicker = () => {
 
   const [picker, setPicker] = useState<boolean>(false);
 
-  const config: Config = {
-    maxSelect: 10,
-    maxVideo: 10,
-    primaryColor: Colors.primary,
-    backgroundDark: '#2f2f2f',
-    numberOfColumn: 4,
-    mediaType: 'all',
-    selectBoxStyle: 'number',
-    selectMode: 'multiple',
-    language: 'vi', // 🇻🇳 Vietnamese
-    theme: 'dark',
-    isHiddenOriginalButton: false,
-  };
-
   const galleryLaunch = async () => {
+    console.log("gallery launch")
     try {
-      const response = await openPicker(config);
-      console.log('response', response)
-      setImage({
-        fileName: '',
-        uri: '',
-        type: '',
+      const response = await openPicker({
+        mediaType: 'photo',
+        cropping: true,
       });
       if (!response) {
         console.log('User cancelled image picker');
       } else {
         setImage({
-          fileName: response.path.split('/').pop(),
-          uri: image.path,
-          type: image.mime,
+          fileName: response.path.split('/').pop() || '',
+          uri: response.path,
+          type: response.mime,
         });
         setPicker(false);
       }
@@ -56,16 +41,20 @@ const useImagePicker = () => {
   };
 
   const cameraLaunch = async () => {
-    try {
-      const response = await openCamera(config);
+    console.log("camera launch")
 
+    try {
+      const response = await openCamera({
+        mediaType: 'photo',
+        cropping: true,
+      });
       if (!response) {
         console.log('User cancelled image picker');
       } else {
         setImage({
-          fileName: image.path.split('/').pop(),
-          uri: image.path,
-          type: image.mime,
+          fileName: response.path.split('/').pop() || '',
+          uri: response.path,
+          type: response.mime,
         });
         setPicker(false);
       }
@@ -74,42 +63,58 @@ const useImagePicker = () => {
     }
   };
 
-  const requestCameraPermission = async () => {
+  const requestPermission = async (permissionType: any, onSuccess: any) => {
     try {
-      const permission =
-        Platform.OS === 'android'
-          ? PERMISSIONS.ANDROID.CAMERA
-          : PERMISSIONS.IOS.CAMERA;
-
-      const result = await request(permission, {
-        title: 'App Camera Permission',
-        message: 'App needs access to your camera',
-        buttonNeutral: 'Ask Me Later',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      });
-
+      const result = await check(permissionType);
+      console.log({result})
       if (result === RESULTS.GRANTED) {
-        console.log('You can use the camera');
-        setPicker(true);
-      } else {
-        console.log('Camera permission denied');
+        console.log('RESULTS.GRANTED');
+        onSuccess();
+      } else if (result === RESULTS.DENIED) {
+        console.log('RESULTS.DENIED');
+
+        const newResult = await request(permissionType);
+        if (newResult === RESULTS.GRANTED) {
+          onSuccess();
+        } else {
+          console.log('Permission denied');
+        }
+      } else if (result === RESULTS.BLOCKED || result === RESULTS.LIMITED) {
+        console.log('Permission permanently denied. Opening settings...');
+        openSettings();
       }
     } catch (err) {
-      console.warn(err, 'catch error camera picker');
+      console.warn('Error requesting permission:', err);
     }
   };
 
-  const onClose = () => {
-    setPicker(false);
+  const requestCamera = () => {
+    const permission = android
+      ? PERMISSIONS.ANDROID.CAMERA
+      : PERMISSIONS.IOS.CAMERA;
+
+    requestPermission(permission, cameraLaunch);
   };
+
+  const requestGallery = () => {
+    
+    const permission = android
+    ? PERMISSIONS.ANDROID.READ_MEDIA_IMAGES
+    : PERMISSIONS.IOS.PHOTO_LIBRARY;
+
+    requestPermission(permission, galleryLaunch);
+  };
+
+  const onClose = () => setPicker(pre => !pre);
+  const onOpen = () => setPicker(true);
+
   return {
-    picker,
     image,
+    picker,
+    onOpen,
     onClose,
-    cameraLaunch,
-    galleryLaunch,
-    requestCameraPermission,
+    requestCamera,
+    requestGallery,
   };
 };
 

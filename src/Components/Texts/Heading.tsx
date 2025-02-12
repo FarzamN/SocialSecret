@@ -7,11 +7,12 @@ import { Colors } from '../../Utils/Colors';
 import {HeadingType} from '../../Utils/type';
 
 const Heading: FC<HeadingType> = props => {
-  const {text, style, center, marginTop} = props;
+  const {text, style, center, marginTop,numberOfLines} = props;
   const checkTheme =
     useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
   return (
     <Text
+    numberOfLines={numberOfLines}
       style={[
         styles.Heading,
         {

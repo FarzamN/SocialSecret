@@ -4,6 +4,7 @@ import {
   ImageResizeMode,
   ImageSourcePropType,
   ImageStyle,
+  ImageURISource,
   KeyboardTypeOptions,
   StyleProp,
   TextStyle,
@@ -114,7 +115,8 @@ export type AuthBodyType = {
 export type loaderType = {
   visible: boolean;
   isError?: boolean;
-  message?: string;
+  msg?: string;
+  onClose?: () => void;
 };
 
 export type RadioType = {
@@ -133,6 +135,22 @@ export type SettingCardType = {
     type: IconType;
   };
 };
+
+export type inboxCardType = {
+  data: {
+    time: string;
+    title: string;
+    lastMsg: string;
+    image: string;
+  };
+  index: number;
+  onPress: () => void;
+};
+
+export type inboxHiddentype = {
+  onPress: () => void;
+
+}
 
 export type HeaderType = {
   gap?: boolean;

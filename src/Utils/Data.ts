@@ -135,28 +135,36 @@ export const ImageData = [
   {
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
-  },{
+  },
+  {
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
-  },{
+  },
+  {
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
-  },{
+  },
+  {
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
-  },{
+  },
+  {
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
-  },{
+  },
+  {
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
-  },{
+  },
+  {
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
-  },{
+  },
+  {
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
-  },{
+  },
+  {
     source:
       'https://wallpapers.com/images/featured/kakashi-iphone-58r3iimem1417ebe.jpg',
   },
@@ -172,5 +180,27 @@ export const SingerProfileData = [
     title: 'One Direction',
     image:
       'https://www.onedirectionmusic.com/assets/images/hero-2015-rect-med.jpg',
+  },
+];
+
+export const inboxData = [
+  {
+    time: 'just now',
+    title: 'justin bieber',
+    lastMsg: 'hellow this is me',
+    image:
+      'https://m.media-amazon.com/images/M/MV5BMjE1NjMxMDUyM15BMl5BanBnXkFtZTgwODMzNDM1NTE@._V1_.jpg',
+  }, {
+    time: 'just now',
+    title: 'justin bieber',
+    lastMsg: 'hellow this is me',
+    image:
+      'https://m.media-amazon.com/images/M/MV5BMjE1NjMxMDUyM15BMl5BanBnXkFtZTgwODMzNDM1NTE@._V1_.jpg',
+  }, {
+    time: 'just now',
+    title: 'justin bieber',
+    lastMsg: 'hellow this is me',
+    image:
+      'https://m.media-amazon.com/images/M/MV5BMjE1NjMxMDUyM15BMl5BanBnXkFtZTgwODMzNDM1NTE@._V1_.jpg',
   },
 ];

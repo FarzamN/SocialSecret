@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Font} from '../../Utils/font';
 import { Colors, darkTheme, lightTheme } from '../../Utils/Colors';
-import responsive, { BORDER_RADIUS, FONT_SIZES, HEIGHT_SIZES } from '../../Utils/responsive';
+import responsive, { BORDER_RADIUS, FONT_SIZES, HEIGHT_SIZES, SPACING } from '../../Utils/responsive';
 
 export const styles = StyleSheet.create({
   ModalBotton: {
@@ -50,11 +50,10 @@ export const styles = StyleSheet.create({
   LottieView: {
     height: responsive.height(150),
     alignSelf: 'center',
+    marginBottom: SPACING.DEFAULT
   },
   ModalText: {
-    padding: responsive.space(20),
     fontSize: FONT_SIZES.BODY,
-    color: Colors.ash,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -62,6 +61,7 @@ export const styles = StyleSheet.create({
     width: '70%',
     borderRadius: BORDER_RADIUS.LARGE,
     alignSelf: 'center',
+    padding: SPACING.DEFAULT,
     justifyContent: 'center',
     backgroundColor: Colors.white,
     borderColor: darkTheme.yellow,

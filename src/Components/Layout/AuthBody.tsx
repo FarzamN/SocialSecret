@@ -10,7 +10,7 @@ const AuthBody: FC<AuthBodyType> = props => {
   return (
     <ImageBackground>
       <ScrollView
-        style={GlobalStyle.Padding}
+        // style={GlobalStyle.Padding}
         showsVerticalScrollIndicator={false}>
         <View style={GlobalStyle.Vertical_Space} />
         <View style={GlobalStyle.Vertical_Space} />

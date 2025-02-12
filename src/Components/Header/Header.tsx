@@ -3,35 +3,33 @@ import React, {FC} from 'react';
 import {Divider, Sub} from '..';
 import {useSelector} from 'react-redux';
 import {HeaderType} from '../../Utils/type';
-import responsive, {width} from '../../Utils/responsive';
 import {RootState} from '../../redux/store';
 import {View, TouchableOpacity} from 'react-native';
+import {Colors, lightTheme} from '../../Utils/Colors';
 import {GlobalStyle, Row} from '../../Utils/GlobalStyle';
+import responsive, {width} from '../../Utils/responsive';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
-import {Colors, lightTheme} from '../../Utils/Colors';
 
 const Header: FC<HeaderType> = props => {
   const {
     gap,
+    type,
     label,
     noBack,
     isMenu,
-    IconName,
-    type,
     double,
     isChat,
-    searchBar,
     onSearch,
+    IconName,
+    searchBar,
     onChatPress,
   } = props;
   const {goBack} = useNavigation();
-  const navigation = useNavigation();
+  const {getParent, dispatch} = useNavigation();
 
   const openDrawer = () => {
-    if (navigation.getParent()) {
-      navigation.dispatch(DrawerActions.openDrawer());
-    }
+    if (getParent()) dispatch(DrawerActions.openDrawer())
   };
 
   const dark =
@@ -66,11 +64,11 @@ const Header: FC<HeaderType> = props => {
         <View style={GlobalStyle.row}>
           {noBack && (
             <Icon
-              size={responsive.fontSize(20)}
-              type={type}
               name={`${IconName}`}
-              style={{marginRight: responsive.space(10)}}
+              size={responsive.fontSize(20)}
+              type={type || IconType.Entypo}
               color={dark ? Colors.white : Colors.black}
+              style={{marginRight: responsive.space(10)}}
             />
           )}
 
@@ -83,19 +81,19 @@ const Header: FC<HeaderType> = props => {
             {isChat && (
               <TouchableOpacity onPress={onChatPress}>
                 <Icon
-                  size={responsive.fontSize(23)}
                   name={'chat'}
                   type={IconType.Entypo}
+                  size={responsive.fontSize(23)}
                   color={dark ? Colors.white : Colors.black}
                 />
               </TouchableOpacity>
             )}
             {isMenu && (
-              <TouchableOpacity onPress={() => openDrawer()}>
+              <TouchableOpacity onPress={openDrawer}>
                 <Icon
-                  size={responsive.fontSize(23)}
                   name={'menu'}
                   type={IconType.Entypo}
+                  size={responsive.fontSize(23)}
                   style={{marginLeft: responsive.space(10)}}
                   color={dark ? Colors.white : Colors.black}
                 />
@@ -107,9 +105,9 @@ const Header: FC<HeaderType> = props => {
         {searchBar && (
           <TouchableOpacity onPress={onSearch}>
             <Icon
-              size={responsive.fontSize(23)}
               name={'search'}
               type={IconType.Ionicons}
+              size={responsive.fontSize(23)}
               color={dark ? Colors.white : Colors.black}
             />
           </TouchableOpacity>

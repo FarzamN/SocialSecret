@@ -2,6 +2,7 @@ import {
   Player,
   ChatInbox,
   FeedScreen,
+  ChatScreen,
   MusicScreen,
   ExploreScreen,
 } from '../Screens/User';
@@ -40,6 +41,7 @@ const allFeedConfig: NavigatorConfig = {
   screens: [
     {name: 'feeda', component: FeedScreen},
     {name: 'chatInbox', component: ChatInbox},
+    {name: 'chatScreen', component: ChatScreen},
   ],
 };
 

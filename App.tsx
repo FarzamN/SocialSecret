@@ -16,6 +16,7 @@ const App: FC = () => {
   const [load, setLoad] = useState<boolean>(false);
   const dispatch = useDispatch();
   const {user} = useSelector((state: RootState) => state.auth);
+  console.log('user', user)
   const dark =
     useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
 

@@ -1,5 +1,5 @@
 import {View, ScrollView, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Sub,
   MainInput,
@@ -7,36 +7,38 @@ import {
   CustomButton,
   ImageBackground,
   ImagePickerModal,
+  Loader,
 } from '../../Components';
 import {GlobalStyle} from '../../Utils/GlobalStyle';
-import {useForm} from 'react-hook-form';
+import {SubmitHandler, useForm} from 'react-hook-form';
 
 import {useImagePicker} from '../../Hooks';
-import {Constants, Data} from '../../Utils';
-import {InRegister} from '../../Utils/interface';
+import {Constants} from '../../Utils';
+import {InRegister, IauthInput, IRegisteInput} from '../../Utils/interface';
 import {RegisterInput} from '../../Utils/Data';
 import {useDispatch} from 'react-redux';
+import {authApi} from '../../redux/actions/authAction';
 
 const Register = ({navigation}: InRegister) => {
   const dispatch = useDispatch();
+  const {goBack, navigate} = navigation;
   const {minLength, maxLength, required, emailPattern} = Constants;
-  const {
-    cameraLaunch,
-    galleryLaunch,
-    image,
-    onClose,
-    picker,
-    requestCameraPermission,
-  } = useImagePicker();
-  const onSubmit = () => {
-    // dispatch()
-    // navigation.navigate('otpScreen', {data: 'email', type: 'register'});
-  };
+  const {image, picker, onOpen, onClose, requestCamera, requestGallery} =
+    useImagePicker();
+
+  const [load, setLoad] = useState(false);
+  const [error, setError] = useState({msg: '', visible: false});
+
   const {
     control,
     handleSubmit,
     formState: {errors},
-  } = useForm({mode: 'all'});
+  } = useForm<IRegisteInput>({mode: 'all'});
+
+  const onSubmit: SubmitHandler<IRegisteInput> = data => {
+    if(data.password === data.c_password)
+    authApi(data, navigate, setLoad, setError)(dispatch);
+  };
 
   return (
     <ImageBackground>
@@ -51,10 +53,10 @@ const Register = ({navigation}: InRegister) => {
               ? require('../../Assets/Images/noImage.png')
               : image
           }
-          onPress={requestCameraPermission}
+          onPress={onOpen}
         />
         {RegisterInput.map(({name, p, icon, pw}) => {
-          const error = errors[name];
+          const error = errors[name as keyof IauthInput];
           const rules =
             name === 'password' || name === 'c_password'
               ? {
@@ -67,13 +69,13 @@ const Register = ({navigation}: InRegister) => {
                   pattern: name === 'email' ? emailPattern : undefined,
                 };
           return (
-            <MainInput
+            <MainInput<IRegisteInput>
               isIcon
               icon={icon}
               password={pw}
               key={name}
               control={control}
-              name={name}
+              name={name as keyof IRegisteInput}
               rules={rules}
               placeholder={p}
               isError={!!error}
@@ -89,23 +91,19 @@ const Register = ({navigation}: InRegister) => {
           );
         })}
         <View style={GlobalStyle.Vertical_Space} />
-        <CustomButton
-          title="Continue"
-          //onPress={handleSubmit(onSubmit)}
-          onPress={onSubmit}
-        />
-        <TouchableOpacity
-          activeOpacity={1}
-          onPress={() => navigation.navigate('login')}>
+        <CustomButton loader={load} title="Continue" onPress={handleSubmit(onSubmit)} />
+        <TouchableOpacity activeOpacity={1} onPress={goBack}>
           <Sub center text="Already have an account? " marginTop={15} />
         </TouchableOpacity>
       </ScrollView>
       <ImagePickerModal
         isVisible={picker}
         onClose={onClose}
-        PressCamera={cameraLaunch}
-        PressPicture={galleryLaunch}
+        PressCamera={requestCamera}
+        PressPicture={requestGallery}
       />
+
+      <Loader visible={error.visible} isError msg={error.msg} onClose={() => setError({visible:false,msg: ""})}/>
     </ImageBackground>
   );
 };

@@ -1,7 +1,7 @@
 import {styles} from './style';
 import React, {FC} from 'react';
 import {View} from 'react-native';
-import Modal from 'react-native-modal';
+import {Modal} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
 import {WPSelectType} from '../../Utils/type';
@@ -62,7 +62,7 @@ const WpSelectModal: FC<WPSelectType> = props => {
   return (
     <Modal
       testID={'modal'}
-      statusBarTranslucent
+      
       onSwipeComplete={onClose}
       onBackButtonPress={onClose}
       onBackdropPress={onClose}

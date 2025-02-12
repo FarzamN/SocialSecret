@@ -1,4 +1,5 @@
-import { setItem } from './../../Utils/storage';
+import {AuthNavParamList, IRegisteInput} from './../../Utils/interface';
+import {setItem} from './../../Utils/storage';
 import {Dispatch} from 'redux';
 import {setOTP, setUser} from '../slices/authSlice';
 import {catchFun} from '../../function';
@@ -31,7 +32,7 @@ export const loginApi = (
       const res = await response.json();
       if (res.status === 'success') {
         dispatch(setUser(res.data));
-       setItem('user', res.data);
+        setItem('user', res.data);
         load(false);
       } else {
         shake();
@@ -49,6 +50,10 @@ export const loginApi = (
 
 export const authApi = (
   e: IauthInput,
+  navigate: (
+    screen: keyof AuthNavParamList,
+    params?: {data: object; type: string},
+  ) => void,
   load: LoadFunction,
   error: ErrorFunction,
 ) => {
@@ -69,7 +74,7 @@ export const authApi = (
       const res = await response.json();
       if (res.status === 200) {
         dispatch(setOTP(res.otp));
-       setItem('user', res.data);
+        navigate('otpScreen', {data: e, type: 'register'});
         load(false);
       } else {
         load(false);
@@ -80,6 +85,45 @@ export const authApi = (
       load(false);
       catchFun();
       log('LoginApi error', err);
+    }
+  };
+};
+
+export const registerApi = (
+  e: IRegisteInput,
+  load: LoadFunction,
+  error: ErrorFunction,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      load(true);
+      const url = `${apiUrl}auth/register`;
+      const myData = new FormData();
+
+      myData.append('name', e.name);
+      myData.append('email', e.email);
+      myData.append('phone', e.number);
+      myData.append('password', e.password);
+
+      const response = await fetch(url, {
+        method: 'POST',
+        body: myData,
+      });
+
+      const res = await response.json();
+      if (res.status === 200) {
+        dispatch(setUser(res.data));
+        setItem('user', res.data);
+        load(false);
+      } else {
+        load(false);
+        log(res.message);
+        error({visible: true, msg: res.message});
+      }
+    } catch (err) {
+      load(false);
+      catchFun();
+      log('registerApi error:', err);
     }
   };
 };

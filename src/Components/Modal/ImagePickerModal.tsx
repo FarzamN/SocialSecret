@@ -1,14 +1,14 @@
 import React, {FC} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 
-import Modal from 'react-native-modal';
+import {Modal} from 'react-native-paper';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import {ImagePicType} from '../../Utils/type';
 import {styles} from './style';
 import {RootState} from '../../redux/store';
 import {useSelector} from 'react-redux';
-import { Colors } from '../../Utils/Colors';
-import { FONT_SIZES } from '../../Utils/responsive';
+import {Colors} from '../../Utils/Colors';
+import {FONT_SIZES} from '../../Utils/responsive';
 
 const ImagePickerModal: FC<ImagePicType> = props => {
   const {isVisible, onClose, PressPicture, PressCamera} = props;
@@ -17,12 +17,10 @@ const ImagePickerModal: FC<ImagePicType> = props => {
   const color = dark ? Colors.white : Colors.blue;
   return (
     <Modal
-      testID={'modal'}
-      backdropOpacity={0.3}
-      onBackdropPress={onClose}
-      isVisible={isVisible}
-      onBackButtonPress={onClose}
-      statusBarTranslucent
+      visible={isVisible}
+      dismissable
+      dismissableBackButton
+      onDismiss={onClose}
       style={styles.ModalBotton}>
       <View style={styles.PickerContainer}>
         <TouchableOpacity onPress={onClose} style={styles.CrossBOx}>

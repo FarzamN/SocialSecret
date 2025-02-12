@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Font} from '../../Utils/font';
 import { Colors } from '../../Utils/Colors';
-import responsive, { BORDER_RADIUS, FONT_SIZES, HEIGHT_SIZES } from '../../Utils/responsive';
+import responsive, { BORDER_RADIUS, FONT_SIZES, HEIGHT_SIZES, SPACING } from '../../Utils/responsive';
 
 export default StyleSheet.create({
   containerStyle: {
@@ -28,4 +28,16 @@ export default StyleSheet.create({
     height: HEIGHT_SIZES.DEFAULT,
   },
   text: {color: '#000', fontSize: FONT_SIZES.BODY, fontFamily: Font.font600Italic},
+
+  indexHiddenMain:{
+    marginHorizontal:SPACING.DEFAULT,
+    height: responsive.height(75),
+
+  },
+  inboxHiddenCont: {
+    width: responsive.height(30),
+    aspectRatio:1/1,
+    borderRadius: BORDER_RADIUS.CIRCLE,
+
+  }
 });

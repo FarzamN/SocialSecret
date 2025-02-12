@@ -28,6 +28,4 @@ export const getItem = (key: string) => {
   return value ? JSON.parse(value) : null;
 };
 
-export const removeItem = (key: string) => {
-  storage.delete(key);
-};
+export const removeItem = (key: string) => storage.delete(key);

@@ -4,9 +4,9 @@ import {RootState} from '../../../redux/store';
 import {Header, ImageBackground, Radio, Sub} from '../../../Components';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
 import {ThemeData} from '../../../Utils/Data';
-import {Colors, lightTheme, darkTheme} from '../../../Utils/Colors';
+import { lightTheme, darkTheme} from '../../../Utils/Colors';
 import {useTheme} from '../../../Hooks';
-import responsive from '../../../Utils/responsive';
+import responsive, { SPACING } from '../../../Utils/responsive';
 
 const Theme = ({navigation}) => {
   const {theme, updateTheme} = useTheme();
@@ -15,12 +15,12 @@ const Theme = ({navigation}) => {
 
   return (
     <ImageBackground>
-      <Header gap label="Theme Change" />
+      <Header gap label="Theme" />
       <Icon
         size={responsive.fontSize(100)}
-        style={{alignSelf: 'center'}}
         name={isDark ? 'moon' : 'wb-sunny'}
-        color={isDark ? darkTheme.primary : lightTheme.primary}
+        color={isDark ? darkTheme.yellow : lightTheme.yellow}
+        style={{alignSelf: 'center',marginTop:SPACING.DEFAULT}}
         type={isDark ? IconType.Ionicons : IconType.MaterialIcons}
       />
       <Sub center text={`Your Theme is set to ${theme}`} />
