@@ -1,5 +1,3 @@
-import React, {FC, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
 import {
   Sub,
   Divider,
@@ -7,25 +5,29 @@ import {
   MainInput,
   Validation,
   CustomButton,
+  ForgetModal,
+  OutlineButton,
 } from '../../Components';
-import {Constants} from '../../Utils';
-import {useDispatch} from 'react-redux';
-import {useForm, SubmitHandler, FieldValues} from 'react-hook-form';
-import {ILogin, ILoginInput} from '../../Utils/interface';
-import {GlobalStyle} from '../../Utils/GlobalStyle';
-import {loginApi} from '../../redux/actions/authAction';
-
 import Animated, {
-  useSharedValue,
   withTiming,
-  useAnimatedStyle,
   withRepeat,
   withSequence,
+  useSharedValue,
+  useAnimatedStyle,
 } from 'react-native-reanimated';
+
+import {Button, View} from 'react-native';
+import {Constants} from '../../Utils';
+import {useDispatch} from 'react-redux';
+import React, {FC, useState} from 'react';
 import {LoginInput} from '../../Utils/Data';
 import {AppDispatch} from '../../redux/store';
-import {setUser} from '../../redux/slices/authSlice';
-import responsive from '../../Utils/responsive';
+import {GlobalStyle} from '../../Utils/GlobalStyle';
+import {useForm, SubmitHandler} from 'react-hook-form';
+import {loginApi} from '../../redux/actions/authAction';
+import {ILogin, ILoginInput} from '../../Utils/interface';
+import {Notifier, Easing} from 'react-native-notifier';
+import { showNotification } from '../../Components/Helper/NotifierHelper';
 
 const Login: FC<ILogin> = ({navigation}) => {
   const {required, emailPattern, minLength, maxLength} = Constants;
@@ -34,6 +36,8 @@ const Login: FC<ILogin> = ({navigation}) => {
   const dispatch: AppDispatch = useDispatch();
 
   const [load, setLoad] = useState<boolean>(false);
+  const [showForget, setShowForget] = useState<boolean>(false);
+
   const [error, setError] = useState<{visible: boolean; msg: string}>({
     visible: false,
     msg: '',
@@ -56,8 +60,7 @@ const Login: FC<ILogin> = ({navigation}) => {
 
   const onSubmit: SubmitHandler<ILoginInput> = async inputs => {
     setError({visible: false, msg: ''});
-    // dispatch(loginApi(inputs, setLoad, setError, shake));
-    dispatch(setUser(inputs));
+    loginApi(inputs, setLoad, setError, shake)(dispatch);
   };
 
   const {
@@ -69,69 +72,94 @@ const Login: FC<ILogin> = ({navigation}) => {
   });
 
   return (
-    <AuthBody
-      noButton
-      heading="Please login to continue"
-      sub="If You are new Please Register an Account">
-      <View style={GlobalStyle.Vertical_Space} />
-      <View style={GlobalStyle.Vertical_Space} />
+    <>
+      <AuthBody
+        noButton
+        heading="Please login to continue"
+        sub="If You are new Please Register an Account">
+        <View style={GlobalStyle.Vertical_Space} />
+        <View style={GlobalStyle.Vertical_Space} />
 
-      {LoginInput.map(({name, p, icon, def}) => {
-        const isPassword = name === 'password';
-        const isError = errors[isPassword ? 'password' : 'email'];
-        const rules = isPassword
-          ? {
-              minLength,
-              maxLength,
-              required: required('Password'),
-            }
-          : {
-              required: required('Email'),
-              pattern: emailPattern,
-            };
-        return (
-          <Animated.View key={name} style={[animatedStyle]}>
-            <MainInput
-              isIcon
-              icon={icon}
-              name={name}
-              rules={rules}
-              placeholder={p}
-              control={control}
-              isError={!!isError}
-              password={isPassword}
-              defaultValue={`${def}`}
-              message={isError?.message}
-              keyboardType={isPassword ? 'default' : 'email-address'}
-            />
-          </Animated.View>
-        );
-      })}
-      <Validation
-        isError={error.visible}
-        message="Email or password is invalid"
-      />
-      <TouchableOpacity
-        activeOpacity={1}
-        onPress={() => navigate('ForgetPassword')}>
-        <Sub
-          marginTop={responsive.space(10)}
-          text="Forget Password?"
-          style={{textAlign: 'right'}}
+        {LoginInput.map(({name, p, icon}) => {
+          const isPassword = name === 'password';
+          const isError = errors[isPassword ? 'password' : 'email'];
+          const rules = isPassword
+            ? {
+                minLength,
+                maxLength,
+                required: required('Password'),
+              }
+            : {
+                required: required('Email'),
+                pattern: emailPattern,
+              };
+          return (
+            <Animated.View key={name} style={[animatedStyle]}>
+              <MainInput
+                small
+                isIcon
+                icon={icon}
+                name={name}
+                rules={rules}
+                placeholder={p}
+                control={control}
+                isError={!!isError}
+                password={isPassword}
+                // defaultValue={`${def}`}
+                message={isError?.message}
+                keyboardType={isPassword ? 'default' : 'email-address'}
+              />
+            </Animated.View>
+          );
+        })}
+        <Validation mh={20} message={error.msg} isError={error.visible} />
+        {/* <TouchableOpacity
+          activeOpacity={1}
+          >
+          <Sub
+            marginTop={responsive.space(10)}
+            text="?"
+            style={{textAlign: 'right',marginRight:SPACING.DEFAULT}}
+          />
+        </TouchableOpacity> */}
+        <OutlineButton
+          onPress={() => setShowForget(true)}
+          title="Forget Password?"
         />
-      </TouchableOpacity>
-      <CustomButton
-        title="Login"
-        loader={load}
-        onPress={handleSubmit(onSubmit)}
+
+        <CustomButton
+          isMarginTop
+          marginTop={0}
+          title="Login"
+          loader={load}
+          onPress={handleSubmit(onSubmit)}
+        />
+
+        <OutlineButton
+          center
+          onPress={() => navigate('register')}
+          title="Don't have an account?"
+        />
+
+        {/* <View style={GlobalStyle.mt} /> */}
+        <Divider />
+        <CustomButton
+          Google
+          title="Login with Google"
+         
+        />
+         <Button title="Success" onPress={() => showNotification("success", "Success!", "Your action was successful.")} />
+      <Button title="Error" onPress={() => showNotification("error", "Error!", "Something went wrong.")} />
+      <Button title="Info" onPress={() => showNotification("info", "Info", "This is an information message.")} />
+  
+      </AuthBody>
+      <ForgetModal
+        visible={showForget}
+        onClose={() => setShowForget(false)}
+        onEmail={() => navigate('forgetPassword', {type: 'email'})}
+        onPhone={() => navigate('forgetPassword', {type: 'phone'})}
       />
-      <TouchableOpacity activeOpacity={1} onPress={() => navigate('register')}>
-        <Sub center text="Don't have an account? " marginTop={responsive.space(15)} />
-      </TouchableOpacity>
-      <View style={GlobalStyle.mt} />
-      <Divider />
-      <CustomButton Google title="Login with Google" />
-    </AuthBody>
+    </>
   );
 };
 

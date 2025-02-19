@@ -13,19 +13,22 @@ import WPButton from './Buttons/WPButton';
 import FullImage from './Helper/FullImage';
 import SearchBar from './Helper/SearchBar';
 import MainInput from './Inputs/MainInput';
+import PhoneInput from "./Inputs/phoneInput";
 import SettingCard from './Card/SettingCard';
 import Validation from './Helper/Validation';
+import ForgetModal from './Modal/forgetModal';
+import CustomToast from './Helper/customToast';
 import WPSelectCard from './Card/WPSelectCard';
 import SelectImage from './Helper/SelectImage';
 import InboxHidden from './Buttons/inboxHidden';
 import WallpaperCard from './Card/WallpaperCard';
 import WpSelectModal from './Modal/WpSelectModal';
 import CustomButton from './Buttons/CustomButton';
+import OutlineButton from './Buttons/outlineButton';
 import WallpaperSwitch from './Switch/WallpaperSwitch';
 import ImageBackground from './Layout/ImageBackground';
 import ImagePickerModal from './Modal/ImagePickerModal';
 import SingerProfileCard from './Card/SingerProfileCard';
-
 
 export {
   Sub,
@@ -43,14 +46,18 @@ export {
   SearchBar,
   InboxCard,
   FullImage,
-  InboxHidden,
+  PhoneInput,
   Validation,
   SelectImage,
+  InboxHidden,
+  ForgetModal,
   SettingCard,
+  CustomToast,
   WPSelectCard,
   CustomButton,
   WallpaperCard,
   WpSelectModal,
+  OutlineButton,
   WallpaperSwitch,
   ImageBackground,
   ImagePickerModal,

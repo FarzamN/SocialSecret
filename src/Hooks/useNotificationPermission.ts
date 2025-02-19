@@ -11,7 +11,7 @@ const useNotificationPermission = () => {
         console.log('Notification permission denied');
       }
     } else if (android) {
-      const status = await request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
+      const status = await request(PERMISSIONS.ANDROID.RECEIVE_WAP_PUSH);
       if (status === RESULTS.GRANTED) {
         console.log('Notification permission granted');
       } else {

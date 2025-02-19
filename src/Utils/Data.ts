@@ -36,7 +36,7 @@ export const ChangePasswordInput = [
 export const RegisterInput = [
   {icon: 'account', p: 'Full Name', name: 'name'},
   {icon: 'email', p: 'Email', name: 'email'},
-  {icon: 'phone', p: 'Phone Number', name: 'number'},
+  {icon: 'phone', p: 'Phone Number'},
   {
     icon: 'form-textbox-password',
     p: 'Password',

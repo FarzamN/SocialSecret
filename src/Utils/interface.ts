@@ -29,9 +29,9 @@ export type AuthNavParamList = {
   login: undefined;
   OverBoard: undefined;
   register: undefined;
-  ForgetPassword: undefined;
+  forgetPassword: {type: string};
   otpScreen: {data: object; type: string};
-  changePassword: undefined;
+  changePassword: {id: string};
 };
 
 export type UserNavParamList = {
@@ -43,8 +43,6 @@ export type UserNavParamList = {
   CheckTouchID: undefined;
   SingerProfile: {item: object};
   chatScreen: {item: object};
-
-
 };
 
 export interface ILogin {
@@ -62,7 +60,7 @@ export interface IauthInput {
 }
 
 export interface IRegisteInput {
-  name:  string;
+  name: string;
   email: string;
   number: string;
   password: string;
@@ -76,7 +74,13 @@ export interface InRegister {
   navigation: StackNavigationProp<AuthNavParamList, 'register'>;
 }
 export interface InForgetPassword {
-  navigation: StackNavigationProp<AuthNavParamList, 'ForgetPassword'>;
+  route: {params: {type: string}};
+  navigation: StackNavigationProp<AuthNavParamList, 'forgetPassword'>;
+}
+
+export interface InChangePassword {
+  route: {params: {id: {_id: string}}};
+  navigation: StackNavigationProp<AuthNavParamList, 'login'>;
 }
 export interface InOtpScreen {
   route: any;
@@ -117,7 +121,6 @@ export interface IApplyImage {
 export interface IChatInbox {
   navigation: StackNavigationProp<UserNavParamList, 'chatInbox'>;
 }
-
 
 export interface ichatScreen {
   route: any;

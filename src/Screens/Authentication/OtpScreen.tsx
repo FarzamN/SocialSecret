@@ -18,31 +18,31 @@ import {InOtpScreen} from '../../Utils/interface';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
 import {Colors, darkTheme, lightTheme} from '../../Utils/Colors';
-import {registerApi} from '../../redux/actions/authAction';
+import {resendOtp, registerApi} from '../../redux/actions/authAction';
 
 const OtpScreen = ({navigation, route}: InOtpScreen) => {
   const dispatch = useDispatch();
+  const {navigate} = navigation;
   const {data, type} = route.params;
 
   const {otp} = useSelector((state: RootState) => state.auth);
   const [value, setValue] = useState<string>('');
-
-  const num = 60;
-
   const [load, setLoad] = useState(false);
   const [error, setError] = useState({msg: '', visible: false});
-const [counter,setCounter] = useState(num)
 
-useEffect(() => {
-  const timer =
-    counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
-  return () => clearInterval(timer);
-}, [counter]);
+  const num = 60;
+  const [counter, setCounter] = useState(num);
 
-const handleResend = () => {
-  setCounter(num);
-  // dispatch(resendOtp(data, setLoad, type));
-};
+  useEffect(() => {
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter]);
+
+  const handleResend = () => {
+    resendOtp(data, setCounter)(dispatch);
+    // if (type === 'register')
+  };
 
   const [isKeyboard, setKeyboard] = useState<boolean>(true);
   const dark =
@@ -65,7 +65,11 @@ const handleResend = () => {
 
   const onSubmit = () => {
     if (value == otp) {
-      registerApi(data, setLoad, setError)(dispatch);
+      if (type === 'register') {
+        registerApi(data, setLoad, setError)(dispatch);
+      } else if (type === 'forget') {
+        navigate('changePassword', {id: data});
+      }
     } else {
       setError({visible: true, msg: 'invalid otp'});
     }
@@ -128,13 +132,18 @@ const handleResend = () => {
         />
       ) : (
         <View style={[GlobalStyle.row_center, {marginVertical: 10}]}>
-          <Sub text={ counter === 0 ? "Don't receive the OTP? " : "Resend code in "} />
+          <Sub
+            text={counter === 0 ? "Don't receive the OTP? " : 'Resend code in '}
+          />
 
-          <TouchableOpacity activeOpacity={1}     disabled={counter !== 0} onPress={handleResend}>
-             <Sub
+          <TouchableOpacity
+            activeOpacity={1}
+            disabled={counter !== 0}
+            onPress={handleResend}>
+            <Sub
               text={
                 counter === 0
-                  ? "Resend"
+                  ? 'Resend'
                   : `${counter} ${counter > 1 ? 'secs' : 'sec'}`
               }
               style={[

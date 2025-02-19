@@ -18,7 +18,7 @@ export const style = StyleSheet.create({
   },
 
   ImageContainer: {
-    width: 150,
+    width: responsive.width(100),
     aspectRatio: 1 / 1,
     borderRadius: BORDER_RADIUS.CIRCLE,
     alignSelf: 'center',
@@ -63,5 +63,35 @@ export const style = StyleSheet.create({
     fontSize: FONT_SIZES.BODY,
     fontFamily: Font.font500,
     maxWidth: '89%',
+  },
+
+
+  // !--------- Custom Toast styles
+
+  toastCont:{
+    borderWidth: 1,
+    height: 70,
+    width: '80%',
+    alignSelf: 'center',
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  ToastText1: {
+    fontSize: FONT_SIZES.BODY,
+    fontFamily: Font.font600,
+  },
+  ToastText2: {
+    fontSize: FONT_SIZES.SMALL,
+    fontFamily: Font.font500,
+  },
+  ToastIconBox: {
+    width:22,
+    aspectRatio:1/1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius:5,
+    marginRight:12,
   },
 });

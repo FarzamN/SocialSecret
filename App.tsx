@@ -10,13 +10,14 @@ import DrawerNavigation from './src/Navigations/DrawerNavigation';
 import {getItem} from './src/Utils/storage';
 import {NavigationContainer} from '@react-navigation/native';
 import responsive from './src/Utils/responsive';
+import { NotifierWrapper } from 'react-native-notifier';
 
 const App: FC = () => {
   const mode = useColorScheme();
   const [load, setLoad] = useState<boolean>(false);
   const dispatch = useDispatch();
   const {user} = useSelector((state: RootState) => state.auth);
-  console.log('user', user)
+  console.log('checking user', user)
   const dark =
     useSelector((state: RootState) => state.themeMode.defTheme) === 'dark';
 
@@ -61,6 +62,7 @@ useEffect(() => { const unsubscribe = message().onMessage(async remoteMessage =>
     setTimeout(() => setLoad(true), 3000);
   }, []);
 
+  
   return (
     <AnimatedSplash
       isLoaded={load}
@@ -69,7 +71,9 @@ useEffect(() => { const unsubscribe = message().onMessage(async remoteMessage =>
       logoWidth={responsive.width(150)}
       logoImage={require('./src/Assets/Images/logo.png')}>
       <NavigationContainer>
+      <NotifierWrapper>
         {user == null ? <AuthNavigation /> : <DrawerNavigation />}
+        </NotifierWrapper>
       </NavigationContainer>
     </AnimatedSplash>
   );

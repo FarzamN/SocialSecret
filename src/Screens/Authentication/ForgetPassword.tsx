@@ -1,15 +1,23 @@
-import React from 'react';
-import {AuthBody, MainInput} from '../../Components';
-import {useForm} from 'react-hook-form';
 import {Constants} from '../../Utils';
-import {InForgetPassword} from '../../Utils/interface';
+import {useForm} from 'react-hook-form';
+import React, { useState } from 'react';
+import {AuthBody, MainInput} from '../../Components';
+import { findEmailnPhone } from '../../redux/actions/authAction';
+import {IauthInput, InForgetPassword} from '../../Utils/interface';
 
-const ForgetPassword = ({navigation}: InForgetPassword) => {
+const ForgetPassword = ({navigation,route}: InForgetPassword) => {
+  const {type} = route.params
+  const {navigate} = navigation
+  const phone = type === "phone"
   const {required, emailPattern} = Constants;
 
-  const onSubmit = (data: object) => {
-    navigation.navigate('otpScreen', {data, type: 'forget'});
+  const [load,setLoad] = useState<boolean>(false)
+
+  const onSubmit = (data: IauthInput) => {
+   findEmailnPhone(data,type, navigate,setLoad)
   };
+  const subs = phone ? "phone" :"email"
+  const title = phone ? "Phone Number" :"Email"
   const {
     control,
     handleSubmit,
@@ -17,67 +25,30 @@ const ForgetPassword = ({navigation}: InForgetPassword) => {
   } = useForm({mode: 'all'});
   return (
     <AuthBody
+    load={load}
       title="Submit"
-      heading="Enter Your Email"
+      heading={`Enter Your ${title}`}
       onPress={handleSubmit(onSubmit)}
-      sub="In this Email we will send you a OTP (One Time Passcode)">
+
+      sub={`In this ${title} we will send you a OTP`}>
       <MainInput
+       small
         isIcon
-        icon="email"
-        outlined
+      // outlined
+        icon={subs}
+        name={subs}
         control={control}
-        name="email"
+        placeholder={title}
         rules={{
-          required: required('Email'),
-          pattern: emailPattern,
+          required: required(subs),
+          pattern: phone ? undefined : emailPattern,
         }}
-        placeholder="Email"
-        isError={errors.email}
-        message={errors?.email?.message}
-        keyboardType={'email-address'}
+        isError={phone ?  errors?.phone :  errors.email}
+        keyboardType={phone ? "number-pad" :'email-address'}
+        message={phone ?  errors?.phone?.message :  errors?.email?.message}
       />
     </AuthBody>
   );
 };
 
 export default ForgetPassword;
-
-{
-  /*
-<ImageBackground>
-  <ScrollView
-    style={GlobalStyle.Padding}
-    showsVerticalScrollIndicator={false}>
-    <FullImage
-      style={style.Image_Box}
-      source={require('../../Assets/Images/otp.png')}
-    />
-    <Heading text="Enter Your Email" center />
-    <View style={GlobalStyle.Vertical_Space} />
-    <Sub
-      center
-      text="In this Email we will send you a OTP (One Time Passcode)"
-    />
-    <View style={GlobalStyle.Vertical_Space} />
-    <MainInput
-      isIcon
-      icon="email"
-      outlined
-      control={control}
-      name="email"
-      rules={{
-        required: required('Email'),
-        pattern: emailPattern,
-      }}
-      placeholder="Email"
-      isError={errors.email}
-      message={errors?.email?.message}
-      keyboardType={'email-address'}
-    />
-    <View style={GlobalStyle.Vertical_Space} />
-    <View style={GlobalStyle.Vertical_Space} />
-    <CustomButton title="Submit" onPress={handleSubmit(onSubmit)} />
-  </ScrollView>
-</ImageBackground>
-*/
-}

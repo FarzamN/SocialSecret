@@ -15,7 +15,7 @@ const Loader: FC<loaderType> = props => {
   const color = dark ? darkTheme.yellow : lightTheme.yellow;
 
   return (
-    <Modal visible={visible} style={{margin: 0}} onDismiss={onClose}>
+    <Modal visible={visible}  onDismiss={onClose}>
       <View
         style={[
           styles.ModalContainer,

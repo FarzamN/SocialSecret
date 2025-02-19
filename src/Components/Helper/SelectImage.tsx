@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {ImageType} from '../../Utils/type';
 import {RootState} from '../../redux/store';
 import {GlobalStyle} from '../../Utils/GlobalStyle';
-import { FONT_SIZES } from '../../Utils/responsive';
+import { BORDER_RADIUS, FONT_SIZES } from '../../Utils/responsive';
 import { darkTheme, lightTheme } from '../../Utils/Colors';
 import {View, Image, TouchableOpacity} from 'react-native';
 import Icon, {IconType} from 'react-native-dynamic-vector-icons';
@@ -17,7 +17,7 @@ const SelectImage: FC<ImageType> = props => {
     <View style={style.ImageContainer}>
       <Image
         resizeMode="contain"
-        style={[GlobalStyle.full, {borderRadius: 100}]}
+        style={[GlobalStyle.full, {borderRadius: BORDER_RADIUS.CIRCLE}]}
         source={source}
       />
       <TouchableOpacity

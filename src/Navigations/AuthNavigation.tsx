@@ -10,7 +10,6 @@ import {
 } from '../Screens/Authentication';
 import { RootState } from '../redux/store';
 import { useSelector } from 'react-redux';
-import { darkTheme, lightTheme } from '../Utils/Colors';
 
 const AuthNavigation: FC = () => {
   const {Navigator, Screen} = createNativeStackNavigator();
@@ -26,7 +25,7 @@ const AuthNavigation: FC = () => {
           {n: 'OverBoard', c: OverBoard},
           {n: 'otpScreen', c: OtpScreen},
           {n: 'changePassword', c: ChangePassword},
-          {n: 'ForgetPassword', c: ForgetPassword},
+          {n: 'forgetPassword', c: ForgetPassword},
         ].map(({n, c}) => (
           <Screen name={n} component={c} key={n} />
         ))}

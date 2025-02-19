@@ -38,6 +38,11 @@ export default StyleSheet.create({
     width: responsive.height(30),
     aspectRatio:1/1,
     borderRadius: BORDER_RADIUS.CIRCLE,
+  },
 
+  outlineCont:{
+    height: HEIGHT_SIZES.DEFAULT,
+    justifyContent:'center',
+    
   }
 });

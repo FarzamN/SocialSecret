@@ -41,6 +41,13 @@ export type CustomButtonProps = {
   textRestyle?: false | StyleProp<ViewStyle> | StyleProp<TextStyle>;
 };
 
+export type OutlineButtonProps = {
+  center?: boolean;
+  onPress?: () => void;
+  title: string;
+  marginTop?: number ;
+};
+
 export type BodyProps = {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
@@ -77,11 +84,13 @@ export type MainInputType = {
   isError?: boolean | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
   message?: string | object | any;
   outlined?: boolean;
+  small?: boolean;
 };
 
 export type ValidationType = {
   isError: boolean | object;
   message: string | object | any;
+  mh?: number;
 };
 export type ImageType = {
   source: ImageSourcePropType;
@@ -110,19 +119,27 @@ export type AuthBodyType = {
   children: ReactNode;
   onPress?: () => void;
   noButton?: boolean;
+  load?: boolean;
 };
 
 export type loaderType = {
+  msg?: string;
   visible: boolean;
   isError?: boolean;
-  msg?: string;
   onClose?: () => void;
 };
 
-export type RadioType = {
-  focus: boolean;
-  i: number;
+export type forgetType = {
+  msg?: string;
+  visible: boolean;
+  onClose?: () => void;
+  onEmail?: () => void;
+  onPhone?: () => void;
+};
 
+export type RadioType = {
+  i: number;
+  focus: boolean;
   data: {label: string; isSub?: boolean};
   onPress?: (e: GestureResponderEvent) => void;
 };
@@ -149,8 +166,7 @@ export type inboxCardType = {
 
 export type inboxHiddentype = {
   onPress: () => void;
-
-}
+};
 
 export type HeaderType = {
   gap?: boolean;
@@ -217,6 +233,11 @@ export type SPCardType = {
   data: {title: string; image: string};
 };
 
+export type toastProps = {
+  title:string, message:string, type:string
+};
+
+
 export interface ErrorType {
   msg: string;
   visible: boolean;
@@ -224,3 +245,4 @@ export interface ErrorType {
 export type LoadFunction = (loading: boolean) => void;
 export type ErrorFunction = (error: ErrorType) => void;
 export type ShakeFunction = () => void;
+export type countFunction = (count: number) => void;

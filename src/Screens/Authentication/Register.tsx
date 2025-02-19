@@ -1,5 +1,5 @@
 import {View, ScrollView, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {
   Sub,
   MainInput,
@@ -8,6 +8,8 @@ import {
   ImageBackground,
   ImagePickerModal,
   Loader,
+  PhoneInput,
+  OutlineButton,
 } from '../../Components';
 import {GlobalStyle} from '../../Utils/GlobalStyle';
 import {SubmitHandler, useForm} from 'react-hook-form';
@@ -36,8 +38,9 @@ const Register = ({navigation}: InRegister) => {
   } = useForm<IRegisteInput>({mode: 'all'});
 
   const onSubmit: SubmitHandler<IRegisteInput> = data => {
-    if(data.password === data.c_password)
-    authApi(data, navigate, setLoad, setError)(dispatch);
+    if (data.password === data.c_password)
+      authApi(data, navigate, setLoad, setError)(dispatch);
+    else setError({msg: "Password didn't match", visible: true});
   };
 
   return (
@@ -55,6 +58,7 @@ const Register = ({navigation}: InRegister) => {
           }
           onPress={onOpen}
         />
+
         {RegisterInput.map(({name, p, icon, pw}) => {
           const error = errors[name as keyof IauthInput];
           const rules =
@@ -69,32 +73,35 @@ const Register = ({navigation}: InRegister) => {
                   pattern: name === 'email' ? emailPattern : undefined,
                 };
           return (
-            <MainInput<IRegisteInput>
-              isIcon
-              icon={icon}
-              password={pw}
-              key={name}
-              control={control}
-              name={name as keyof IRegisteInput}
-              rules={rules}
-              placeholder={p}
-              isError={!!error}
-              message={error?.message}
-              keyboardType={
-                name == 'email'
-                  ? 'email-address'
-                  : name == 'number'
-                  ? 'number-pad'
-                  : 'default'
-              }
-            />
+            <Fragment key={p}>
+              {icon === 'phone' ? (
+                <PhoneInput />
+              ) : (
+                <MainInput<IRegisteInput>
+                  isIcon
+                  key={name}
+                  icon={icon}
+                  password={pw}
+                  rules={rules}
+                  placeholder={p}
+                  isError={!!error}
+                  control={control}
+                  message={error?.message}
+                  small={name === 'email'}
+                  name={name as keyof IRegisteInput}
+                  keyboardType={name == 'email' ? 'email-address' : 'default'}
+                />
+              )}
+            </Fragment>
           );
         })}
         <View style={GlobalStyle.Vertical_Space} />
-        <CustomButton loader={load} title="Continue" onPress={handleSubmit(onSubmit)} />
-        <TouchableOpacity activeOpacity={1} onPress={goBack}>
-          <Sub center text="Already have an account? " marginTop={15} />
-        </TouchableOpacity>
+        <CustomButton
+          loader={load}
+          title="Continue"
+          onPress={handleSubmit(onSubmit)}
+        />
+        <OutlineButton center onPress={goBack} title="Already have an account?" />
       </ScrollView>
       <ImagePickerModal
         isVisible={picker}
@@ -103,7 +110,12 @@ const Register = ({navigation}: InRegister) => {
         PressPicture={requestGallery}
       />
 
-      <Loader visible={error.visible} isError msg={error.msg} onClose={() => setError({visible:false,msg: ""})}/>
+      <Loader
+        visible={error.visible}
+        isError
+        msg={error.msg}
+        onClose={() => setError({visible: false, msg: ''})}
+      />
     </ImageBackground>
   );
 };

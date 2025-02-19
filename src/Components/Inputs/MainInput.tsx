@@ -13,37 +13,38 @@ import {MainInputType} from '../../Utils/type';
 import React, {FC, forwardRef, useState, Ref} from 'react';
 import {TextInput, DefaultTheme} from 'react-native-paper';
 import {View, TextInput as RNTextInput} from 'react-native';
-import { Colors, darkTheme, lightTheme } from '../../Utils/Colors';
+import {Colors, darkTheme, lightTheme} from '../../Utils/Colors';
 
 const MainInput: FC<MainInputType> = forwardRef(
   (props, ref: Ref<RNTextInput>) => {
     const {
-      Container,
-      control,
-      defaultValue,
+      icon,
       name,
       rules,
+      small,
+      isIcon,
+      control,
+      isError,
       onFocus,
+      restyle,
+      message,
+      password,
+      outlined,
+      Container,
       multiline,
+      maxLength,
       placeholder,
       keyboardType,
-      password,
-      maxLength,
-      restyle,
-      icon,
-      isIcon,
-      isError,
-      message,
-      outlined,
+      defaultValue,
     } = props;
 
     const [show, setShow] = useState<boolean>(true);
 
     const {field} = useController({
-      control: control as Control<FieldValues>,
-      name: name as FieldPath<FieldValues>,
       rules: rules as RegisterOptions,
       defaultValue: defaultValue || '',
+      name: name as FieldPath<FieldValues>,
+      control: control as Control<FieldValues>,
     });
 
     const dark =
@@ -56,7 +57,7 @@ const MainInput: FC<MainInputType> = forwardRef(
     const mode = outlined ? 'outlined' : 'flat';
     const label = outlined ? placeholder : undefined;
     const cursorColor = dark ? lightTheme.yellow : darkTheme.yellow;
-    const placeholderTextColor = dark ? lightTheme.place : lightTheme.place;
+    const placeholderTextColor = dark ? '#fff' : lightTheme.place;
     return (
       <View style={[style.Container, Container]}>
         <TextInput
@@ -76,10 +77,15 @@ const MainInput: FC<MainInputType> = forwardRef(
           keyboardType={keyboardType}
           onChangeText={field.onChange}
           selectionColor={Colors.AYellow}
-          style={[style.InputStyles, restyle]}
+          style={[
+            style.InputStyles,
+            {backgroundColor: outlined ? Colors.Non : 'rgba(255,255,255,0.3)'},
+            restyle,
+          ]}
           activeOutlineColor={darkTheme.yellow}
           activeUnderlineColor={darkTheme.yellow}
           secureTextEntry={password ? show : false}
+          autoCapitalize={small ? 'none' : undefined}
           placeholderTextColor={placeholderTextColor}
           theme={{
             ...DefaultTheme,

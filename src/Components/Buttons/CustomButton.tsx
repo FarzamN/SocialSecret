@@ -2,7 +2,6 @@ import styles from './style';
 import React, {FC} from 'react';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/store';
-import { Constants} from '../../Utils';
 import {CustomButtonProps} from '../../Utils/type';
 import {GlobalStyle} from '../../Utils/GlobalStyle';
 import {Text, ActivityIndicator, View} from 'react-native';
@@ -13,18 +12,18 @@ import responsive, { HEIGHT_SIZES, width } from '../../Utils/responsive';
 
 const CustomButton: FC<CustomButtonProps> = props => {
   const {
-    onPress,
-    loader,
     style,
-    disabled,
     title,
-    marginTop,
     small,
     round,
     white,
+    loader,
+    Google,
+    onPress,
+    disabled,
+    marginTop,
     isMarginTop,
     textRestyle,
-    Google,
   } = props;
   const Theme = useSelector((state: RootState) => state.themeMode.defTheme);
   const dark = Theme === 'dark';
@@ -40,7 +39,7 @@ const CustomButton: FC<CustomButtonProps> = props => {
       backgroundDarker={back}
       disabled={disabled || loader}
       borderRadius={round ? responsive.borderRadius(100) : responsive.borderRadius(10)}
-      width={small ? width - 100 : width - 20}
+      width={small ? "50%" : "100%"}
       style={[
         styles.containerStyle,
         {marginTop: isMarginTop ? marginTop : responsive.space(12)},

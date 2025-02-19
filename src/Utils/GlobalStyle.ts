@@ -76,10 +76,7 @@ export const GlobalStyle = StyleSheet.create({
     marginTop: responsive.space(6),
   },
   Padding: {
-    // backgroundColor:'red',
-    // width: '95%',
-    // marginHorizontal:20,
-    alignSelf: 'center',
+    marginHorizontal:responsive.space(10)
   },
   PaddingHor: {
     paddingHorizontal: responsive.space(15),

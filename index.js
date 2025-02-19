@@ -27,6 +27,7 @@ const Root = () => {
       <PersistGate loading={null} persistor={persistor}>
         <GestureHandlerRootView style={{flex: 1}}>
           <PaperProvider theme={theme}>
+            
             <App />
           </PaperProvider>
         </GestureHandlerRootView>

@@ -6,11 +6,11 @@ import style from './style';
 import {AuthBodyType} from '../../Utils/type';
 
 const AuthBody: FC<AuthBodyType> = props => {
-  const {heading, sub, children, onPress, title, noButton} = props;
+  const {heading, sub, children, onPress, title, noButton,load} = props;
   return (
     <ImageBackground>
       <ScrollView
-        // style={GlobalStyle.Padding}
+        style={GlobalStyle.Padding}
         showsVerticalScrollIndicator={false}>
         <View style={GlobalStyle.Vertical_Space} />
         <View style={GlobalStyle.Vertical_Space} />
@@ -27,7 +27,7 @@ const AuthBody: FC<AuthBodyType> = props => {
         {children}
         <View style={GlobalStyle.Vertical_Space} />
         <View style={GlobalStyle.Vertical_Space} />
-        {!noButton && <CustomButton title={title} onPress={onPress} />}
+        {!noButton && <CustomButton title={title} onPress={onPress} loader={load} />}
       </ScrollView>
     </ImageBackground>
   );

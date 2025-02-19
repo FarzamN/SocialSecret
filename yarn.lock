@@ -6121,6 +6121,11 @@ path-type@^4.0.0:
   resolved "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+phone@3.1.58:
+  version "3.1.58"
+  resolved "https://registry.yarnpkg.com/phone/-/phone-3.1.58.tgz#af0523fc3d2d840e46d47fb4118845f0bc38babd"
+  integrity sha512-4R4qfXxNPpl08fxOH0qvTXTodQue0nCnAQP0OIu2i59TDq4QXM0dq/b7ODPNH93setqK5YdMSiMuce0RPsgu4w==
+
 picocolors@^1.0.0, picocolors@^1.0.1, picocolors@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz"
@@ -6398,6 +6403,11 @@ react-native-confirmation-code-field@^7.4.0:
   resolved "https://registry.yarnpkg.com/react-native-confirmation-code-field/-/react-native-confirmation-code-field-7.4.0.tgz#58cc2d5adad59882d1805bf164cd6099d432d21e"
   integrity sha512-Kw7rD0RXi6vZnt0Y67nkSW2wYmZFdnxJ23yxkKm3jqwvSxAvaA1NP3h3MHSPmJd25l0WK/+fjXOeCliDqWZ9rw==
 
+react-native-country-codes-picker@2.3.5:
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/react-native-country-codes-picker/-/react-native-country-codes-picker-2.3.5.tgz#159cbbcee14716533cdaa9997d457ab1a943038c"
+  integrity sha512-dDQhd0bVvlmgb84NPhTOmTk5UVYPHtk3lqZI+BPb61H1rC2IDrTvPWENg6u1DMGliqWHQDBYpeH37zvxxQL71w==
+
 react-native-device-info@^14.0.4:
   version "14.0.4"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-14.0.4.tgz#56b24ace9ff29a66bdfc667209086421ed6cfdce"
@@ -6473,6 +6483,14 @@ react-native-image-zoom-viewer@^3.0.1:
   dependencies:
     react-native-image-pan-zoom "^2.1.12"
 
+react-native-international-phone-number@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/react-native-international-phone-number/-/react-native-international-phone-number-0.9.1.tgz#22e365cbd9766e906327dc082f9dfa6093da0e6b"
+  integrity sha512-ZE3in/85BYsdnCWnmWnJuKcO/kuKP04+atIeFZzkkVsAHIUfCsuEd5y4NyYFhfRb/No1joDCRRpJrJKhNBxW8A==
+  dependencies:
+    phone "3.1.58"
+    react-native-country-codes-picker "2.3.5"
+
 react-native-iphone-x-helper@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
@@ -6510,6 +6528,11 @@ react-native-modal@^13.0.1:
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
+
+react-native-notifier@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-notifier/-/react-native-notifier-2.0.0.tgz#99bb703fae8cbf0c0465a5beacdca923613344fa"
+  integrity sha512-CKaoldBM2Lz9FIWn1frUZ70R8n1jCwaUsO4hGfqbNYFUZLV4OYy/UeEicWvrLy3Ce8fEg7WyYWVd0q+crsFQlA==
 
 react-native-pager-view@^6.7.0:
   version "6.7.0"
@@ -6598,11 +6621,6 @@ react-native-tab-view@^4.0.5:
   integrity sha512-Xn3TpYo4yvKRC/f4+cOcvsXlitdnSaYkacshckrEI3JiDmFKNFIRVNxtZFggm4MwbJafq2RzuzR6xrgKoxgkTw==
   dependencies:
     use-latest-callback "^0.2.1"
-
-react-native-toast-message@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-2.2.1.tgz#f395321e9bc818ce63274c38a3d294ed997a4a27"
-  integrity sha512-iXFMnlxPcgKKs4bZOIl06W16m6KXMh/bAYpWLyVXlISSCdcL2+FX5WPpRP3TGQeM/u9q+j5ex48DDY+72en+Sw==
 
 react-native-touch-id@^4.4.1:
   version "4.4.1"
